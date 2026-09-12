@@ -50,6 +50,10 @@ export function AuthProvider({ children }) {
     return () => window.removeEventListener('lq:logout', onLogout);
   }, []);
 
+  useEffect(() => {
+    document.documentElement.dataset.theme = user?.theme || 'void';
+  }, [user?.theme]);
+
   const applyRewards = useCallback((payload) => {
     if (payload?.payload) {
       setUser(payload.payload.user);

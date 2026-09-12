@@ -6,6 +6,70 @@
   color-scheme: dark;
 }
 
+:root,
+:root[data-theme='void'] {
+  --c-void-950: 7 7 13;
+  --c-void-900: 10 10 20;
+  --c-void-800: 14 14 26;
+  --c-void-700: 19 19 35;
+  --c-void-600: 26 26 46;
+  --c-void-500: 36 36 60;
+  --c-arcane-50: 243 239 255;
+  --c-arcane-100: 228 216 255;
+  --c-arcane-200: 201 179 255;
+  --c-arcane-300: 171 139 255;
+  --c-arcane-400: 155 112 255;
+  --c-arcane-500: 139 92 246;
+  --c-arcane-600: 116 69 224;
+  --c-arcane-700: 94 52 184;
+  --c-arcane: 139 92 246;
+}
+
+:root[data-theme='astral'] {
+  --c-void-950: 5 8 18;
+  --c-void-900: 8 12 26;
+  --c-void-800: 11 17 34;
+  --c-void-700: 15 22 44;
+  --c-void-600: 20 30 58;
+  --c-void-500: 28 40 74;
+  --c-arcane-50: 236 249 255;
+  --c-arcane-100: 207 239 255;
+  --c-arcane-200: 163 224 255;
+  --c-arcane-300: 103 199 246;
+  --c-arcane-400: 56 178 240;
+  --c-arcane-500: 34 158 226;
+  --c-arcane-600: 21 122 186;
+  --c-arcane-700: 20 93 153;
+  --c-arcane: 34 158 226;
+}
+
+:root[data-theme='dungeon'] {
+  --c-void-950: 16 10 8;
+  --c-void-900: 21 13 10;
+  --c-void-800: 27 17 13;
+  --c-void-700: 35 22 17;
+  --c-void-600: 46 30 23;
+  --c-void-500: 58 40 31;
+  --c-arcane-50: 255 244 232;
+  --c-arcane-100: 255 230 207;
+  --c-arcane-200: 253 208 160;
+  --c-arcane-300: 246 178 111;
+  --c-arcane-400: 238 148 70;
+  --c-arcane-500: 225 120 45;
+  --c-arcane-600: 195 95 34;
+  --c-arcane-700: 163 79 34;
+  --c-arcane: 225 120 45;
+}
+
+:root {
+  --c-gold-300: 255 221 122;
+  --c-gold-400: 249 204 92;
+  --c-gold-500: 245 197 66;
+  --c-gold-600: 217 169 43;
+  --c-gold-700: 184 136 29;
+  --c-gold: 245 197 66;
+}
+
 html,
 body,
 #root {
@@ -22,11 +86,11 @@ body {
 }
 
 .text-glow {
-  text-shadow: 0 0 18px rgba(139, 92, 246, 0.55);
+  text-shadow: 0 0 18px rgb(var(--c-arcane-500) / 0.55);
 }
 
 .text-glow-gold {
-  text-shadow: 0 0 18px rgba(245, 197, 66, 0.45);
+  text-shadow: 0 0 18px rgb(var(--c-gold-500) / 0.45);
 }
 
 .panel {
@@ -49,15 +113,15 @@ body {
   height: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0a14;
+  background: rgb(var(--c-void-900));
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a2a44;
+  background: rgb(var(--c-void-500));
   border-radius: 8px;
-  border: 2px solid #0a0a14;
+  border: 2px solid rgb(var(--c-void-900));
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3b3b5e;
+  background: rgb(var(--c-void-600));
 }
 
 ::selection {

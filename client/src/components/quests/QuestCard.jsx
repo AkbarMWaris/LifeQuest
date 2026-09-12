@@ -51,18 +51,20 @@ function Checkmark({ active }) {
 export function QuestCard({ quest, onComplete, onArchive, disabled }) {
   const [completing, setCompleting] = useState(false);
   const [optimistic, setOptimistic] = useState(false);
+  const [done, setDone] = useState(false);
   const diff = DIFFICULTIES[quest.difficulty] || DIFFICULTIES.easy;
   const type = QUEST_TYPES[quest.type] || QUEST_TYPES.one_off;
   const attr = ATTRIBUTES[quest.attribute] || ATTRIBUTES.focus;
   const isCompleted = (quest.type === 'one_off' && quest.completedCount > 0);
+  const isVanquished = done || isCompleted;
 
   const handleComplete = async () => {
-    if (disabled || completing || isCompleted) return;
+    if (disabled || completing || isVanquished) return;
     setCompleting(true);
     setOptimistic(true);
     try {
       await onComplete(quest);
-      setTimeout(() => setOptimistic(false), 2000);
+      setDone(true);
     } catch (e) {
       setOptimistic(false);
     } finally {
@@ -117,9 +119,9 @@ export function QuestCard({ quest, onComplete, onArchive, disabled }) {
 
       <div className="mt-auto flex items-center justify-between gap-3 pt-1">
         <span className="font-mono text-[11px] text-slate-500">
-          ×{quest.completedCount || 0} completed
+          ×{quest.completedCount + (done && !isCompleted ? 1 : 0)} completed
         </span>
-        {isCompleted ? (
+        {isVanquished ? (
           <span className="inline-flex items-center gap-2 rounded-lg border border-emerald-400/30 bg-emerald-500/10 px-3 py-1.5 text-sm font-semibold text-emerald-300">
             <Checkmark active /> Vanquished
           </span>
