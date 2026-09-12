@@ -1,0 +1,37 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+
+const COLORS = ['#8b5cf6', '#f5c542', '#34d399', '#fb7185', '#38bdf8', '#ffffff'];
+
+export function ConfettiBurst({ count = 60 }) {
+  const pieces = Array.from({ length: count }).map((_, i) => {
+    const angle = (i / count) * Math.PI * 2;
+    const dist = 120 + (i % 5) * 55;
+    const x = Math.cos(angle) * dist;
+    const y = Math.sin(angle) * dist - 30;
+    return {
+      id: i,
+      x,
+      y,
+      rotate: Math.random() * 720 - 360,
+      scale: 0.5 + Math.random() * 0.9,
+      color: COLORS[i % COLORS.length],
+      rounded: i % 3 === 0,
+    };
+  });
+
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      {pieces.map((p) => (
+        <motion.span
+          key={p.id}
+          className="absolute left-1/2 top-1/2 block"
+          style={{ width: 8, height: 8, backgroundColor: p.color, borderRadius: p.rounded ? '50%' : '2px' }}
+          initial={{ x: 0, y: 0, opacity: 1, scale: 0 }}
+          animate={{ x: p.x, y: p.y, opacity: [1, 1, 0], scale: p.scale, rotate: p.rotate }}
+          transition={{ duration: 1.4 + (i % 4) * 0.18, ease: 'easeOut' }}
+        />
+      ))}
+    </div>
+  );
+}

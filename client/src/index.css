@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-void-950 text-slate-200 font-body antialiased;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238b5cf6' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.font-display {
+  letter-spacing: 0.02em;
+}
+
+.text-glow {
+  text-shadow: 0 0 18px rgba(139, 92, 246, 0.55);
+}
+
+.text-glow-gold {
+  text-shadow: 0 0 18px rgba(245, 197, 66, 0.45);
+}
+
+.panel {
+  @apply rounded-2xl border border-arcane-500/15 bg-void-800/70 shadow-panel backdrop-blur;
+}
+
+.skeleton {
+  @apply relative overflow-hidden rounded-xl bg-void-600/60;
+}
+
+.skeleton::after {
+  content: '';
+  @apply absolute inset-0 animate-shimmer;
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.12), transparent);
+  background-size: 200% 100%;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a14;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2a44;
+  border-radius: 8px;
+  border: 2px solid #0a0a14;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3b3b5e;
+}
+
+::selection {
+  background: rgba(139, 92, 246, 0.4);
+  color: #fff;
+}
+
+input,
+textarea,
+select {
+  @apply outline-none;
+}

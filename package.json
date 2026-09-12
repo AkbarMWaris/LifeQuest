@@ -1,0 +1,16 @@
+{
+  "name": "lifequest",
+  "version": "1.0.0",
+  "description": "LifeQuest — turn real life into an RPG. Quests, XP, gold, leveling and loot.",
+  "private": true,
+  "scripts": {
+    "setup": "npm install && npm --prefix server install && npm --prefix client install",
+    "dev": "concurrently -n api,web -c violet,amber \"npm --prefix server run dev\" \"npm --prefix client run dev\"",
+    "seed": "npm --prefix server run seed",
+    "build": "npm --prefix client run build",
+    "start": "npm --prefix server start"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}
