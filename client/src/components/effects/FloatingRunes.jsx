@@ -11,7 +11,7 @@ export function FloatingRunes({ count = 14 }) {
         size: 11 + Math.random() * 14,
         duration: 10 + Math.random() * 14,
         delay: -Math.random() * 20,
-        charr: ['✦', '·', '☁', '∘', '❋', '⋆', '·'][i % 7],
+        charr: ['✦', '·', '✧', '∘', '❋', '⋆', '·'][i % 7],
       })),
     [count]
   );

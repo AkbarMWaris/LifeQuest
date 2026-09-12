@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { RARITY_STYLES } from '../../lib/constants.js';
 import { Button } from '../ui/Button.jsx';
+import { IconCoin, SHOP_ICON_MAP, emojiIcon, IconSpark } from '../ui/icons.jsx';
 
 const typeLabel = {
   cosmetic: 'Cosmetic',
@@ -12,6 +13,7 @@ const typeLabel = {
 
 export function ShopItemCard({ item, canAfford, owned, onBuy, buying }) {
   const rarity = RARITY_STYLES[item.rarity] || RARITY_STYLES.common;
+  const Icon = emojiIcon(item.icon, SHOP_ICON_MAP, IconSpark);
   return (
     <motion.div
       initial={{ opacity: 0, y: 14 }}
@@ -29,11 +31,11 @@ export function ShopItemCard({ item, canAfford, owned, onBuy, buying }) {
       </div>
 
       <motion.div
-        className="grid h-16 w-16 place-items-center self-center rounded-2xl border border-white/10 bg-void-900/70 text-3xl"
+        className="grid h-16 w-16 place-items-center self-center rounded-2xl border border-white/10 bg-void-900/70"
         whileHover={{ scale: 1.12, rotate: -4 }}
         transition={{ type: 'spring', stiffness: 300, damping: 15 }}
       >
-        {item.icon}
+        <Icon size={28} className={rarity.text} />
       </motion.div>
 
       <div className="text-center">
@@ -57,8 +59,8 @@ export function ShopItemCard({ item, canAfford, owned, onBuy, buying }) {
             {buying
               ? 'Trading…'
               : (
-                  <span className="font-mono">
-                    🪙 {item.costGold.toLocaleString()}
+                  <span className="flex items-center gap-1 font-mono">
+                    <IconCoin size={13} /> {item.costGold.toLocaleString()}
                   </span>
                 )}
           </Button>

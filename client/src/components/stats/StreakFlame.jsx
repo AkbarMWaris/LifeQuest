@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { IconFlame, IconEmber } from '../ui/icons.jsx';
 
 export function StreakFlame({ streak, active }) {
   const burning = active && streak > 0;
@@ -10,7 +11,7 @@ export function StreakFlame({ streak, active }) {
         transition={{ duration: 1.4, repeat: burning ? Infinity : 0, ease: 'easeInOut' }}
         className="inline-block text-lg"
       >
-        {burning ? '🔥' : '🌫️'}
+        {burning ? <IconFlame className="text-amber-300" /> : <IconEmber className="text-slate-500" />}
       </motion.span>
       <span className={`font-mono text-lg font-bold ${burning ? 'text-amber-300 text-glow-gold' : 'text-slate-500'}`}>
         {streak}

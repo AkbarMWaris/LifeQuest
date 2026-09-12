@@ -4,6 +4,7 @@ import { useAuth } from '../../context/AuthContext.jsx';
 import { GoldCounter } from '../stats/GoldCounter.jsx';
 import { StreakFlame } from '../stats/StreakFlame.jsx';
 import { motion } from 'framer-motion';
+import { IconCoffee } from '../ui/icons.jsx';
 
 export function Topbar() {
   const { user, profile, equippedItems } = useAuth();
@@ -45,7 +46,7 @@ export function Topbar() {
             {user?.avatarUrl ? (
               <img src={user.avatarUrl} alt="" className="h-full w-full object-cover" />
             ) : (
-              <span>{user?.displayName?.[0]?.toUpperCase() || '☕'}</span>
+              <IconCoffee size={20} className="text-arcane-300" />
             )}
           </motion.div>
         </div>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { IconCoffee } from './icons.jsx';
 
 export class ErrorBoundary extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ export class ErrorBoundary extends Component {
       return (
         <div className="grid min-h-screen place-items-center bg-void-950 p-8 text-center">
           <div className="max-w-md space-y-4">
-            <span className="text-6xl">🍵</span>
+            <span className="inline-grid text-arcane-300/80 place-items-center"><IconCoffee size={56} /></span>
             <h1 className="font-display text-2xl font-medium text-white">The page slipped off the desk</h1>
             <p className="text-sm text-slate-400">
               Something unexpected happened. A refresh usually puts it back.

@@ -90,7 +90,7 @@ export function QuestFormModal({ open, onClose, onCreate, creating }) {
             <select className={inputCls} value={attribute} onChange={(e) => setAttribute(e.target.value)}>
               {Object.entries(ATTRIBUTES).map(([k, v]) => (
                 <option key={k} value={k}>
-                  {v.icon} {v.label}
+                  {v.label}
                 </option>
               ))}
             </select>

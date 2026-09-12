@@ -28,7 +28,7 @@ export function AuthPage({ mode }) {
     try {
       if (isSignup) {
         await signup(email, password, displayName);
-        toast.success(`Welcome to the loft, ${displayName.split(' ')[0]}! ✒️`);
+        toast.success(`Welcome to the loft, ${displayName.split(' ')[0]}!`);
       } else {
         await login(email, password);
         toast.success("Welcome back — the kettle's on.");

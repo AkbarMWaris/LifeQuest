@@ -25,19 +25,19 @@ export function useQuestActions() {
       const unlockedAchievements = data?.unlockedAchievements || [];
 
       if (rewards.streakBonus > 0) {
-        toast.gold(`🔥 ${rewards.streak} day streak! +${rewards.streakBonus} streak bonus XP`);
+        toast.gold(`${rewards.streak} day streak! +${rewards.streakBonus} streak bonus XP`);
       }
-      toast.success(`✒️ "${quest.title}" — crossed off! +${rewards.xp || 0} XP, +${rewards.gold || 0} 🪙`);
+      toast.success(`"${quest.title}" — crossed off! +${rewards.xp || 0} XP, +${rewards.gold || 0} gold`);
 
       if (rewards.multiplier && rewards.multiplier > 1) {
-        toast.info(`🧪 ${rewards.multiplier}× multiplier active!`);
+        toast.info(`${rewards.multiplier}× multiplier active!`);
       }
 
       if (unlockedAchievements.length) {
-        unlockedAchievements.forEach((a) => toast.info(`🏆 Achievement: ${a.name}`));
+        unlockedAchievements.forEach((a) => toast.info(`Achievement unlocked: ${a.name}`));
       }
       if (loot) {
-        toast.gold(`💎 Loot drop! You found "${loot.name}"`);
+        toast.gold(`Loot drop! You found "${loot.name}"`);
       }
       if (levelUps > 0) {
         const newLevel = data?.payload?.profile?.currentLevel;
@@ -55,7 +55,7 @@ export function useQuestActions() {
   const archiveQuest = useCallback(async (quest, reload) => {
     try {
       await api.delete(`/quests/${quest.id}`);
-      toast.info(`🕯️ "${quest.title}" archived.`);
+      toast.info(`"${quest.title}" archived.`);
       reload?.();
     } catch (err) {
       toast.error(errorMessage(err));

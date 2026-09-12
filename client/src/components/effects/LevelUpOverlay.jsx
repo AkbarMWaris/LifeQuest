@@ -2,6 +2,7 @@ import React from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ConfettiBurst } from './ConfettiBurst.jsx';
+import { IconCrown, IconTarget } from '../ui/icons.jsx';
 
 export function LevelUpOverlay({ open, level, attr, attrLeveledUp, attribute, onClose }) {
   return createPortal(
@@ -25,9 +26,9 @@ export function LevelUpOverlay({ open, level, attr, attrLeveledUp, attribute, on
             <motion.div
               animate={{ rotate: [0, -8, 8, 0] }}
               transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-              className="mx-auto mb-4 inline-block animate-float text-7xl"
+              className="mx-auto mb-4 inline-block animate-float text-arcane-300/90"
             >
-              👑
+              <IconCrown size={72} className="text-gold" />
             </motion.div>
             <motion.p
               initial={{ opacity: 0, y: 10 }}
@@ -50,9 +51,9 @@ export function LevelUpOverlay({ open, level, attr, attrLeveledUp, attribute, on
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
-                className="mt-3 text-arcane-200"
+                className="mt-3 flex items-center justify-center gap-2 text-arcane-200"
               >
-                🎯 Your <span className="font-bold text-arcane-300">{attribute}</span> has also grown.
+                  <IconTarget size={16} className="text-arcane-300" /> Your <span className="font-bold text-arcane-300">{attribute}</span> has also grown.
               </motion.p>
             )}
             <motion.button

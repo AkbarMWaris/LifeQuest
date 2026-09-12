@@ -13,6 +13,7 @@ import { AttributeBars } from '../components/stats/AttributeBars.jsx';
 import { QuestCard } from '../components/quests/QuestCard.jsx';
 import { LevelUpOverlay } from '../components/effects/LevelUpOverlay.jsx';
 import { SkeletonCard } from '../components/ui/Skeleton.jsx';
+import { IconUser, IconCoffee, IconCoin, IconAmulet, IconPen, IconDocument, IconSpark, IconPotion } from '../components/ui/icons.jsx';
 import { DIFFICULTIES } from '../lib/constants.js';
 
 const frameTitle = {
@@ -21,9 +22,26 @@ const frameTitle = {
   void: 'border-slate-300/60 shadow-[0_0_28px_-6px_rgb(var(--c-arcane-500)_/_0.75)]',
 };
 
+function useGreeting() {
+  const [now, setNow] = useState(() => new Date());
+
+  useEffect(() => {
+    const cur = new Date(now);
+    const boundaryHour = cur.getHours() < 12 ? 12 : cur.getHours() < 18 ? 18 : 24;
+    const boundary = new Date(cur);
+    boundary.setHours(boundaryHour, 0, 0, 0);
+    const timer = setTimeout(() => setNow(new Date()), boundary.getTime() - cur.getTime() + 1000);
+    return () => clearTimeout(timer);
+  }, [now]);
+
+  const h = now.getHours();
+  return h < 12 ? 'morning' : h < 18 ? 'afternoon' : 'evening';
+}
+
 export function Dashboard() {
   const { user, profile, equippedItems } = useAuth();
   const toast = useToast();
+  const greeting = useGreeting();
   const { completeQuest, levelUp, closeLevelUp } = useQuestActions();
   const [quests, setQuests] = useState([]);
   const [recent, setRecent] = useState([]);
@@ -57,7 +75,7 @@ export function Dashboard() {
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="font-display text-3xl font-medium text-white">
-            Good <span className="italic text-arcane-300">{new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 18 ? 'afternoon' : 'evening'}</span>,{' '}
+            Good <span className="italic text-arcane-300">{greeting}</span>,
             {user?.displayName?.split(' ')[0]}.
           </h1>
           <p className="mt-1 text-sm text-slate-400">The kettle's on. Small quests, done daily.</p>
@@ -83,7 +101,7 @@ export function Dashboard() {
               animate={{ scale: 1 }}
               className={`grid h-14 w-14 shrink-0 place-items-center overflow-hidden rounded-full border-2 bg-gradient-to-br from-arcane-500/30 to-void-800 text-xl ${frameClass}`}
             >
-              {user?.avatarUrl ? <img src={user.avatarUrl} className="h-full w-full object-cover" alt="" /> : '🧙'}
+              {user?.avatarUrl ? <img src={user.avatarUrl} className="h-full w-full object-cover" alt="" /> : <IconUser size={26} className="text-arcane-300/80" />}
             </motion.div>
             <div className="min-w-0">
               <p className="truncate font-display font-bold text-white">
@@ -114,9 +132,11 @@ export function Dashboard() {
             <div className="mt-2 space-y-2">
               {profile.activeBuffs.map((b, i) => (
                 <div key={i} className="flex items-center justify-between rounded-lg bg-arcane-500/10 px-3 py-2 text-sm">
-                  <span className="text-arcane-200">☕ {b.name}</span>
-                  <span className="font-mono text-xs text-gold-300">
-                    {b.goldMultiplier > 1 ? `🪙 ${b.goldMultiplier}×` : `${b.multiplier}×`}
+                  <span className="flex items-center gap-2 text-arcane-200">
+                    <IconPotion size={14} /> {b.name}
+                  </span>
+                  <span className="flex items-center gap-1 font-mono text-xs text-gold-300">
+                    <IconCoin size={12} /> {b.goldMultiplier > 1 ? `${b.goldMultiplier}×` : `${b.multiplier}×`}
                   </span>
                 </div>
               ))}
@@ -125,7 +145,9 @@ export function Dashboard() {
             <p className="mt-2 text-sm text-slate-500">Nothing brewing. The stall sells elixirs, friend.</p>
           )}
           {profile?.streakFreezeActive && (
-            <p className="mt-2 text-xs text-sky-300">🧿 Streak freeze is watching your back.</p>
+            <p className="mt-2 flex items-center gap-1.5 text-xs text-sky-300">
+              <IconAmulet size={13} /> Streak freeze is watching your back.
+            </p>
           )}
         </motion.div>
       </div>
@@ -134,7 +156,9 @@ export function Dashboard() {
         {/* Focus quests */}
         <div className="space-y-4 lg:col-span-2">
           <div className="flex items-center justify-between">
-            <h2 className="font-display text-lg font-bold text-white">✒️ Focus Journal</h2>
+            <h2 className="flex items-center gap-2 font-display text-lg font-bold text-white">
+            <IconPen size={17} className="text-arcane-300/80" /> Focus Journal
+          </h2>
             <Link to="/quests" className="text-xs font-semibold text-arcane-300 hover:text-arcane-200">
               Open the log →
             </Link>
@@ -146,7 +170,7 @@ export function Dashboard() {
             </div>
           ) : focusQuests.length === 0 ? (
             <div className="panel flex flex-col items-center gap-3 p-10 text-center">
-              <span className="animate-float text-4xl">☕</span>
+              <span className="animate-float text-arcane-300/90"><IconCoffee size={38} /></span>
               <p className="font-display font-bold text-white">The page is empty — for now</p>
               <p className="max-w-xs text-sm text-slate-400">
                 Post your first quest and start earning XP today.
@@ -165,7 +189,9 @@ export function Dashboard() {
 
           {/* Recent completions */}
           <div>
-            <h2 className="mb-3 font-display text-lg font-bold text-white">📜 Recent writes</h2>
+            <h2 className="mb-3 flex items-center gap-2 font-display text-lg font-bold text-white">
+            <IconDocument size={17} className="text-arcane-300/80" /> Recent writes
+          </h2>
             {loading ? (
               <SkeletonCard className="h-32" />
             ) : recent.length === 0 ? (
@@ -175,7 +201,7 @@ export function Dashboard() {
                 {recent.map((c) => (
                   <div key={c._id} className="flex items-center justify-between gap-3 px-5 py-3">
                     <div className="flex items-center gap-3 min-w-0">
-                      <span className="text-lg">✒️</span>
+                      <IconPen size={16} className="text-arcane-300/80" />
                       <div className="min-w-0">
                         <p className="truncate text-sm font-semibold text-slate-200">{c.questTitle}</p>
                         <p className="text-xs text-slate-500">{new Date(c.completedAt).toLocaleString()}</p>
@@ -183,7 +209,7 @@ export function Dashboard() {
                     </div>
                     <div className="flex shrink-0 gap-2 font-mono text-xs">
                       <span className="text-arcane-300">+{c.xpAwarded} XP</span>
-                      <span className="text-gold-400">+{c.goldAwarded} 🪙</span>
+                      <span className="flex items-center gap-1 text-gold-400">+{c.goldAwarded} <IconCoin size={12} /></span>
                     </div>
                   </div>
                 ))}
@@ -195,7 +221,9 @@ export function Dashboard() {
         {/* Attributes sidebar */}
         <div className="space-y-6">
           <div className="panel p-5">
-            <h2 className="mb-1 font-display text-lg font-bold text-white">✨ Attributes</h2>
+            <h2 className="mb-1 flex items-center gap-2 font-display text-lg font-bold text-white">
+            <IconSpark size={17} className="text-arcane-300/80" /> Attributes
+          </h2>
             <AttributeRadar attributes={profile?.attributes} />
           </div>
           <div className="panel p-5">

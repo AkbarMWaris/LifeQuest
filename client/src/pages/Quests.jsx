@@ -9,6 +9,7 @@ import { QuestFilters } from '../components/quests/QuestFilters.jsx';
 import { LevelUpOverlay } from '../components/effects/LevelUpOverlay.jsx';
 import { SkeletonCard } from '../components/ui/Skeleton.jsx';
 import { Button } from '../components/ui/Button.jsx';
+import { IconCoffee } from '../components/ui/icons.jsx';
 
 export function Quests() {
   const toast = useToast();
@@ -40,7 +41,7 @@ export function Quests() {
     setCreating(true);
     try {
       await api.post('/quests', payload);
-      toast.success('✒️ Added to the journal. Now go do it.');
+      toast.success('Added to the journal. Now go do it.');
       await load();
     } catch (err) {
       toast.error(errorMessage(err));
@@ -86,7 +87,7 @@ export function Quests() {
         </div>
       ) : filtered.length === 0 ? (
         <div className="panel flex flex-col items-center gap-3 p-14 text-center">
-          <span className="animate-float text-5xl">☕</span>
+          <span className="animate-float text-arcane-300/90"><IconCoffee size={44} /></span>
           <p className="font-display text-lg font-bold text-white">Nothing on this page yet</p>
           <p className="max-w-sm text-sm text-slate-400">
             {quests.length === 0

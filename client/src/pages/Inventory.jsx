@@ -5,6 +5,7 @@ import { useToast } from '../context/ToastContext.jsx';
 import { InventoryCard } from '../components/inventory/InventoryCard.jsx';
 import { SkeletonCard } from '../components/ui/Skeleton.jsx';
 import { Button } from '../components/ui/Button.jsx';
+import { IconRefresh, IconBackpack } from '../components/ui/icons.jsx';
 
 export function Inventory() {
   const { refreshProfile } = useAuth();
@@ -35,7 +36,7 @@ export function Inventory() {
     try {
       await api.post('/inventory/equip', { ownedId: item.ownedId, equip });
       await Promise.all([load(), refreshProfile()]);
-      toast.info(equip ? `⚔️ Equipped "${item.name}".` : `Unequipped "${item.name}".`);
+      toast.info(equip ? `Equipped "${item.name}".` : `Unequipped "${item.name}".`);
     } catch (err) {
       toast.error(errorMessage(err));
     } finally {
@@ -50,8 +51,8 @@ export function Inventory() {
       await Promise.all([load(), refreshProfile()]);
       toast.success(
         item.type === 'buff'
-          ? `🧪 "${item.name}" consumed. ${item.effectJson?.goldMultiplier > 1 ? `🪙 ${item.effectJson.goldMultiplier}× gold for ${item.effectJson?.durationMinutes || 60} minutes!` : `${item.effectJson?.multiplier || 1}× XP for ${item.effectJson?.durationMinutes || 60} minutes!`}`
-          : `🧿 "Heartstone" glows. Your streak is protected.`
+          ? `"${item.name}" consumed. ${item.effectJson?.goldMultiplier > 1 ? `${item.effectJson.goldMultiplier}× gold for ${item.effectJson?.durationMinutes || 60} minutes!` : `${item.effectJson?.multiplier || 1}× XP for ${item.effectJson?.durationMinutes || 60} minutes!`}`
+          : `"Heartstone" glows. Your streak is protected.`
       );
     } catch (err) {
       toast.error(errorMessage(err));
@@ -95,7 +96,7 @@ export function Inventory() {
           </button>
         ))}
         <Button variant="ghost" size="xs" onClick={() => { load(); refreshProfile(); }} className="ml-auto">
-          ↻ Refresh
+          <IconRefresh size={13} /> Refresh
         </Button>
       </div>
 
@@ -107,7 +108,7 @@ export function Inventory() {
         </div>
       ) : filtered.length === 0 ? (
         <div className="panel flex flex-col items-center gap-3 p-14 text-center">
-          <span className="animate-float text-5xl">🎒</span>
+          <span className="animate-float text-arcane-300/90"><IconBackpack size={44} /></span>
           <p className="font-display text-lg font-bold text-white">The satchel is empty</p>
           <p className="max-w-sm text-sm text-slate-400">
             Earn gold from quests, then visit the stall to find something worth keeping.

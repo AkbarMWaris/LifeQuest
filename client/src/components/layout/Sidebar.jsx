@@ -1,13 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { IconHome, IconPen, IconBag, IconBackpack, IconUser } from '../ui/icons.jsx';
 
 const links = [
-  { to: '/dashboard', label: 'Dashboard', icon: '🏠' },
-  { to: '/quests', label: 'Journal', icon: '✒️' },
-  { to: '/shop', label: 'The Stall', icon: '🛒' },
-  { to: '/inventory', label: 'Satchel', icon: '🎒' },
-  { to: '/profile', label: 'Hero', icon: '🧙' },
+  { to: '/dashboard', label: 'Dashboard', Icon: IconHome },
+  { to: '/quests', label: 'Journal', Icon: IconPen },
+  { to: '/shop', label: 'The Stall', Icon: IconBag },
+  { to: '/inventory', label: 'Satchel', Icon: IconBackpack },
+  { to: '/profile', label: 'Hero', Icon: IconUser },
 ];
 
 export function Sidebar() {
@@ -47,7 +48,7 @@ export function Sidebar() {
                       transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                     />
                   )}
-                  <span className="z-10">{l.icon}</span>
+                  <span className="z-10"><l.Icon size={17} className="text-arcane-300/80" /></span>
                   <span className="z-10">{l.label}</span>
                 </span>
               )}
@@ -73,8 +74,8 @@ export function Sidebar() {
                   isActive ? 'text-arcane-300' : 'text-slate-500'
                 }`}
               >
-                <span className={`text-lg ${isActive ? 'drop-shadow-[0_0_6px_rgb(var(--c-arcane-500)_/_0.8)]' : ''}`}>
-                  {l.icon}
+                <span className={`grid place-items-center ${isActive ? 'text-arcane-200 drop-shadow-[0_0_6px_rgb(var(--c-arcane-500)_/_0.8)]' : 'text-slate-500'}`}>
+                  <l.Icon size={19} />
                 </span>
                 {l.label}
               </span>

@@ -9,6 +9,7 @@ import { AchievementCard } from '../components/achievements/AchievementCard.jsx'
 import { GoldCounter } from '../components/stats/GoldCounter.jsx';
 import { SkeletonCard } from '../components/ui/Skeleton.jsx';
 import { Button } from '../components/ui/Button.jsx';
+import { IconUser, IconSpark, IconChart, IconTrophy } from '../components/ui/icons.jsx';
 
 const inputCls =
   'w-full rounded-xl border border-slate-50/10 bg-void-900/80 px-3 py-2 text-sm text-white placeholder-slate-500 transition-colors focus:border-arcane-400/50';
@@ -97,7 +98,7 @@ export function Profile() {
             <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-arcane-500/15 to-transparent" />
             <div className="relative">
               <div className="mx-auto grid h-20 w-20 place-items-center overflow-hidden rounded-full border-2 border-arcane-400/50 bg-gradient-to-br from-arcane-500/30 to-void-800 text-2xl shadow-glow">
-                {user?.avatarUrl ? <img src={user.avatarUrl} className="h-full w-full object-cover" alt="" /> : '🧙'}
+                {user?.avatarUrl ? <img src={user.avatarUrl} className="h-full w-full object-cover" alt="" /> : <IconUser size={34} className="text-arcane-300/80" />}
               </div>
               <h2 className="mt-3 font-display text-xl font-bold text-white">{user?.displayName}</h2>
               <p className="text-sm text-arcane-300">Level {profile?.currentLevel} · hero</p>
@@ -148,18 +149,18 @@ export function Profile() {
         <div className="space-y-6 lg:col-span-2">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="panel p-5">
-              <h3 className="mb-2 font-display font-bold text-white">✨ Attribute Talents</h3>
+              <h3 className="mb-2 flex items-center gap-2 font-display font-bold text-white"><IconSpark size={16} className="text-arcane-300/80" /> Attribute Talents</h3>
               <AttributeRadar attributes={profile?.attributes} />
             </div>
             <div className="panel p-5">
-              <h3 className="mb-4 font-display font-bold text-white">📊 Attribute XP</h3>
+              <h3 className="mb-4 flex items-center gap-2 font-display font-bold text-white"><IconChart size={16} className="text-arcane-300/80" /> Attribute XP</h3>
               <AttributeBars attributes={profile?.attributes} />
             </div>
           </div>
 
           <div>
             <div className="mb-3 flex items-center justify-between">
-              <h3 className="font-display text-lg font-bold text-white">🏆 Achievements</h3>
+              <h3 className="flex items-center gap-2 font-display text-lg font-bold text-white"><IconTrophy size={18} className="text-arcane-300/80" /> Achievements</h3>
               <span className="font-mono text-sm text-arcane-300">
                 {achievements?.unlockedCount ?? 0} / {achievements?.total ?? 0}
               </span>

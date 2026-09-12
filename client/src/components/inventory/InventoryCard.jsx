@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { RARITY_STYLES } from '../../lib/constants.js';
 import { Button } from '../ui/Button.jsx';
+import { IconSword, SHOP_ICON_MAP, emojiIcon, IconSpark } from '../ui/icons.jsx';
 
 const typeLabel = {
   cosmetic: 'Cosmetic',
@@ -12,6 +13,7 @@ const typeLabel = {
 
 export function InventoryCard({ item, onEquip, onUse, busy }) {
   const rarity = RARITY_STYLES[item.rarity] || RARITY_STYLES.common;
+  const Icon = emojiIcon(item.icon, SHOP_ICON_MAP, IconSpark);
   const isEquippable = item.type === 'cosmetic' || item.type === 'title';
   const isConsumable = item.type === 'buff' || item.type === 'streak_freeze';
 
@@ -29,16 +31,20 @@ export function InventoryCard({ item, onEquip, onUse, busy }) {
           <motion.span
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            className="rounded-md bg-arcane-500/25 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-arcane-200"
+            className="flex items-center gap-1 rounded-md bg-arcane-500/25 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-arcane-200"
           >
-            ⚔ Equipped
+            <IconSword size={11} /> Equipped
           </motion.span>
         )}
       </div>
 
       <div className="flex items-center gap-3">
-        <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-white/10 bg-void-900/70 text-2xl">
-          {item.icon}
+        <div
+          className={`grid h-12 w-12 shrink-0 place-items-center rounded-xl border transition-colors ${
+            item.isEquipped ? 'border-arcane-400/60 bg-arcane-500/15 shadow-glow' : 'border-white/10 bg-void-900/70'
+          }`}
+        >
+          <Icon size={24} className={item.isEquipped ? 'text-arcane-200 text-glow' : rarity.text} />
         </div>
         <div>
           <h3 className="font-display text-sm font-bold text-white">{item.name}</h3>

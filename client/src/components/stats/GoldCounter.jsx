@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, animate } from 'framer-motion';
+import { IconCoin } from '../ui/icons.jsx';
 
 export function GoldCounter({ value, size = 'md', highlight = false }) {
   const [display, setDisplay] = useState(value);
@@ -25,9 +26,9 @@ export function GoldCounter({ value, size = 'md', highlight = false }) {
       <motion.span
         animate={highlight ? { rotate: [0, 15, -12, 6, 0] } : undefined}
         transition={{ duration: 0.6 }}
-        className="inline-block"
+        className={`inline-block ${size === 'lg' ? 'text-xl' : size === 'xs' ? 'text-sm' : 'text-base'}`}
       >
-        🪙
+        <span className="inline-grid place-items-center"><IconCoin className="text-gold-500/70" /></span>
       </motion.span>
       <span
         className={`font-bold text-gold-400 ${size === 'lg' ? 'text-2xl' : size === 'xs' ? 'text-xs' : 'text-base'} ${highlight ? 'text-glow-gold' : ''}`}

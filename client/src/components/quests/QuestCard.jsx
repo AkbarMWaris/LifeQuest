@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { DIFFICULTIES, QUEST_TYPES, ATTRIBUTES } from '../../lib/constants.js';
+import { ATTR_ICONS, IconCoin, IconClock } from '../ui/icons.jsx';
 import { Button } from '../ui/Button.jsx';
 
 const diffStyles = {
@@ -55,6 +56,7 @@ export function QuestCard({ quest, onComplete, onArchive, disabled }) {
   const diff = DIFFICULTIES[quest.difficulty] || DIFFICULTIES.easy;
   const type = QUEST_TYPES[quest.type] || QUEST_TYPES.one_off;
   const attr = ATTRIBUTES[quest.attribute] || ATTRIBUTES.focus;
+  const attrIcon = ATTR_ICONS[attr.icon] || ATTR_ICONS.target;
   const isCompleted = (quest.type === 'one_off' && quest.completedCount > 0);
   const isVanquished = done || isCompleted;
 
@@ -109,12 +111,12 @@ export function QuestCard({ quest, onComplete, onArchive, disabled }) {
 
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-400">
         <span>
-          <span style={{ color: attr.color }}>{attr.icon}</span> {attr.label}
+          <span style={{ color: attr.color }}>{attrIcon}</span> {attr.label}
         </span>
         <span className="font-mono text-arcane-300">+{quest.xpReward} XP</span>
-        <span className="font-mono text-gold-400">+{quest.goldReward} 🪙</span>
+        <span className="flex items-center gap-1 font-mono text-gold-400">+{quest.goldReward} <IconCoin size={12} /></span>
         {quest.deadline && (
-          <span className="text-slate-500">⏳ {new Date(quest.deadline).toLocaleDateString()}</span>
+          <span className="flex items-center gap-1 text-slate-500"><IconClock size={12} /> {new Date(quest.deadline).toLocaleDateString()}</span>
         )}
       </div>
 

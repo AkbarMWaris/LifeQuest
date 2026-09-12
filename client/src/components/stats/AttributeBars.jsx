@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ATTRIBUTES } from '../../lib/constants.js';
+import { ATTR_ICONS } from '../ui/icons.jsx';
 
 export function AttributeBars({ attributes }) {
   return (
@@ -8,11 +9,12 @@ export function AttributeBars({ attributes }) {
       {Object.entries(ATTRIBUTES).map(([key, meta], idx) => {
         const attr = attributes?.[key] || { level: 1, xp: 0 };
         const pct = Math.min(100, Math.round(((attr.xp / 1000) % 1) * 100));
+        const Icon = ATTR_ICONS[meta.icon];
         return (
           <div key={key}>
             <div className="mb-1 flex items-center justify-between text-sm">
               <span className="flex items-center gap-2 font-medium text-slate-300">
-                <span>{meta.icon}</span> {meta.label}
+                {Icon && <span style={{ color: meta.color }}><Icon size={15} /></span>} {meta.label}
               </span>
               <span className="font-mono text-xs text-slate-400">
                 Lv <span style={{ color: meta.color }} className="font-bold">{attr.level}</span>

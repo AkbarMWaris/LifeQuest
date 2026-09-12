@@ -2,20 +2,24 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FloatingRunes } from '../components/effects/FloatingRunes.jsx';
+import {
+  IconPen, IconTrendup, IconFlame, IconCoin, IconTrophy, IconShield,
+  IconDumbbell, IconBook, IconBriefcase, IconCoffee,
+} from '../components/ui/icons.jsx';
 
 const features = [
-  { icon: '✒️', title: 'Quests, not chores', text: 'Every real task becomes an entry in your journal. Post it, do it, cross it off.' },
-  { icon: '📈', title: 'Progress that breathes', text: 'XP banks quietly into five attributes. No pop-ups, no badge spam — the page just fills.' },
-  { icon: '🔥', title: 'Streaks that forgive', text: 'Daily rhythms warm up slowly, forgive one missed night, and keep your ember lit.' },
-  { icon: '🪙', title: 'Gold for the shelf', text: 'Spend earned gold on titles, cosmetics and little elixirs that make tomorrow nicer.' },
-  { icon: '🏆', title: 'Achievements to find', text: 'Small milestones, quietly unlocked. From first cross-off to the hundredth.' },
-  { icon: '🛡️', title: 'Earned, never faked', text: 'The server keeps the ledger. Your progress is real, and it knows it.' },
+  { Icon: IconPen, title: 'Quests, not chores', text: 'Every real task becomes an entry in your journal. Post it, do it, cross it off.' },
+  { Icon: IconTrendup, title: 'Progress that breathes', text: 'XP banks quietly into five attributes. No pop-ups, no badge spam — the page just fills.' },
+  { Icon: IconFlame, title: 'Streaks that forgive', text: 'Daily rhythms warm up slowly, forgive one missed night, and keep your ember lit.' },
+  { Icon: IconCoin, title: 'Gold for the shelf', text: 'Spend earned gold on titles, cosmetics and little elixirs that make tomorrow nicer.' },
+  { Icon: IconTrophy, title: 'Achievements to find', text: 'Small milestones, quietly unlocked. From first cross-off to the hundredth.' },
+  { Icon: IconShield, title: 'Earned, never faked', text: 'The server keeps the ledger. Your progress is real, and it knows it.' },
 ];
 
 const sampleQuests = [
-  { icon: '🏋️', title: 'Gym · 30 minutes', attr: 'Strength', xp: '+25 XP', gold: '+12 🪙', diff: 'medium', tape: 'left-[-10px] -rotate-6' },
-  { icon: '📚', title: 'Read 20 pages', attr: 'Focus', xp: '+50 XP', gold: '+25 🪙', diff: 'hard', tape: 'left-1/2 -translate-x-1/2 -rotate-2' },
-  { icon: '💼', title: 'Apply to 5 jobs', attr: 'Discipline', xp: '+200 XP', gold: '+100 🪙', diff: 'boss', tape: 'right-[-10px] rotate-6' },
+  { Icon: IconDumbbell, title: 'Gym · 30 minutes', attr: 'Strength', xp: '+25 XP', gold: '12', diff: 'medium', tape: 'left-[-10px] -rotate-6' },
+  { Icon: IconBook, title: 'Read 20 pages', attr: 'Focus', xp: '+50 XP', gold: '25', diff: 'hard', tape: 'left-1/2 -translate-x-1/2 -rotate-2' },
+  { Icon: IconBriefcase, title: 'Apply to 5 jobs', attr: 'Discipline', xp: '+200 XP', gold: '100', diff: 'boss', tape: 'right-[-10px] rotate-6' },
 ];
 
 const diffChip = {
@@ -109,9 +113,9 @@ export function Landing() {
             transition={{ delay: 0.45 }}
             className="mt-8 flex flex-wrap items-center gap-2"
           >
-            <span className="tag text-arcane-300">✒️ xp for the small stuff</span>
-            <span className="tag text-amber-300">🔥 streaks that forgive</span>
-            <span className="tag text-emerald-300">🪙 gold for the shelf</span>
+            <span className="tag text-arcane-300"><IconPen size={12} className="inline-block translate-y-[1px]" /> xp for the small stuff</span>
+            <span className="tag text-amber-300"><IconFlame size={12} className="inline-block translate-y-[1px]" /> streaks that forgive</span>
+            <span className="tag text-emerald-300"><IconCoin size={12} className="inline-block translate-y-[1px]" /> gold for the shelf</span>
           </motion.div>
         </motion.div>
 
@@ -135,7 +139,7 @@ export function Landing() {
                   <p className="handnote text-xl text-arcane-300">today's board</p>
                   <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">week 3 · kept warm</p>
                 </div>
-                <div className="font-mono text-base font-bold text-gold-400">🪙 1,240</div>
+                <div className="flex items-center gap-1.5 font-mono text-base font-bold text-gold-400"><IconCoin size={15} /> 1,240</div>
               </div>
 
               <div className="mb-2 flex justify-between text-xs text-slate-400">
@@ -161,14 +165,14 @@ export function Landing() {
                     className="relative flex items-center gap-3 rounded-2xl border border-slate-50/6 bg-void-900/70 p-3"
                   >
                     <span className={`absolute h-4 w-10 rounded-sm ${q.tape} washi opacity-70`} />
-                    <span className="text-xl">{q.icon}</span>
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-slate-50/10 bg-void-800 text-arcane-300"><q.Icon size={20} /></span>
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-semibold text-slate-200">{q.title}</p>
                       <p className="text-xs text-slate-500">{q.attr}</p>
                     </div>
                     <div className="text-right">
                       <p className="font-mono text-xs text-arcane-300">{q.xp}</p>
-                      <p className="font-mono text-xs text-gold-400">{q.gold}</p>
+                      <p className="flex items-center justify-end gap-1 font-mono text-xs text-gold-400"><IconCoin size={10} /> +{q.gold}</p>
                     </div>
                   </motion.div>
                 ))}
@@ -183,9 +187,9 @@ export function Landing() {
       {/* Marginalia strip */}
       <section className="relative z-10 border-y border-slate-50/10 bg-void-900/40">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5 py-4 font-mono text-[11px] text-slate-500">
-          <span className="flex items-center gap-2">✒️ post · do · cross off</span>
-          <span className="flex items-center gap-2">🪙 gold for the shelf</span>
-          <span className="flex items-center gap-2">🔥 ember streaks</span>
+          <span className="flex items-center gap-2"><IconPen size={12} /> post · do · cross off</span>
+          <span className="flex items-center gap-2"><IconCoin size={12} /> gold for the shelf</span>
+          <span className="flex items-center gap-2"><IconFlame size={12} /> ember streaks</span>
           <span className="handnote hidden text-lg text-slate-500 md:block">steeped, not spammed</span>
         </div>
       </section>
@@ -208,8 +212,8 @@ export function Landing() {
               className="panel group relative p-6"
             >
               <span className="absolute right-4 top-4 handnote text-lg text-slate-500 opacity-60">{i + 1}</span>
-              <div className="mb-3 inline-grid h-12 w-12 place-items-center rounded-xl border border-arcane-500/25 bg-arcane-500/10 text-2xl transition-transform group-hover:rotate-6">
-                {f.icon}
+              <div className={`mb-3 inline-grid h-12 w-12 place-items-center rounded-xl border border-arcane-500/25 bg-arcane-500/10 transition-transform group-hover:rotate-6`}>
+                <f.Icon size={22} className="text-arcane-300" />
               </div>
               <h3 className="font-display text-lg font-bold text-white">{f.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-400">{f.text}</p>
@@ -262,7 +266,7 @@ export function Landing() {
           className="relative overflow-hidden rounded-3xl border border-gold-500/25 bg-void-800/80 p-10 text-center shadow-panel"
         >
           <div className="pointer-events-none absolute -inset-8 bg-[radial-gradient(60%_50%_at_30%_30%,rgb(var(--glow-gold)_/_0.1),transparent_70%)]" />
-          <span className="animate-float text-5xl">☕</span>
+          <span className="animate-float text-arcane-300/90"><IconCoffee size={48} /></span>
           <h2 className="mx-auto mt-3 max-w-xl font-display text-3xl leading-tight text-white">
             Your story starts with one entry,<br />
             <em className="italic text-arcane-300">crossed off.</em>

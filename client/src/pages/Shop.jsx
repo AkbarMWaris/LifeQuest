@@ -34,7 +34,7 @@ export function Shop() {
       await api.post('/shop/purchase', { itemId: item.id });
       await refreshProfile();
       setOwned((prev) => new Set([...prev, item.id]));
-      toast.gold(`🛒 "${item.name}" — placed on the shelf.`);
+      toast.gold(`"${item.name}" — placed on the shelf.`);
     } catch (err) {
       toast.error(errorMessage(err));
     } finally {
