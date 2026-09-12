@@ -5,7 +5,7 @@ const chip = (active) =>
   `rounded-full border px-3 py-1 text-xs font-semibold transition-all ${
     active
       ? 'border-arcane-400/60 bg-arcane-500/20 text-arcane-200 shadow-glow'
-      : 'border-white/10 bg-void-800/60 text-slate-400 hover:border-arcane-400/30 hover:text-slate-200'
+      : 'border-slate-50/10 bg-void-800/60 text-slate-400 hover:border-arcane-400/30 hover:text-slate-200'
   }`;
 
 export function QuestFilters({ typeFilter, setTypeFilter, difficultyFilter, setDifficultyFilter }) {

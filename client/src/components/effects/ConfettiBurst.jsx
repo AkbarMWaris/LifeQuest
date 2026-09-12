@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const COLORS = ['#8b5cf6', '#f5c542', '#34d399', '#fb7185', '#38bdf8', '#ffffff'];
+const COLORS = ['#e2a032', '#e3b23c', '#8fa86e', '#e2805c', '#a695c6', '#f5d58a'];
 
 export function ConfettiBurst({ count = 60 }) {
   const pieces = Array.from({ length: count }).map((_, idx) => {

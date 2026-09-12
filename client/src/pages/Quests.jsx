@@ -40,7 +40,7 @@ export function Quests() {
     setCreating(true);
     try {
       await api.post('/quests', payload);
-      toast.success('✨ Quest forged. May your XP ascend.');
+      toast.success('✒️ Added to the journal. Now go do it.');
       await load();
     } catch (err) {
       toast.error(errorMessage(err));
@@ -63,11 +63,11 @@ export function Quests() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-display text-3xl font-black text-white">Quest Log</h1>
-          <p className="mt-1 text-sm text-slate-400">Forge quests, complete them, and grow your legend.</p>
+          <h1 className="font-display text-3xl font-medium text-white">The Journal</h1>
+          <p className="mt-1 text-sm text-slate-400">Post small quests, cross them off, watch the XP bank.</p>
         </div>
         <Button variant="gold" onClick={() => setModalOpen(true)} className="px-6">
-          + Forge New Quest
+          + Post a quest
         </Button>
       </div>
 
@@ -86,16 +86,16 @@ export function Quests() {
         </div>
       ) : filtered.length === 0 ? (
         <div className="panel flex flex-col items-center gap-3 p-14 text-center">
-          <span className="animate-float text-5xl">🕯️</span>
-          <p className="font-display text-lg font-bold text-white">No quests in this view</p>
+          <span className="animate-float text-5xl">☕</span>
+          <p className="font-display text-lg font-bold text-white">Nothing on this page yet</p>
           <p className="max-w-sm text-sm text-slate-400">
             {quests.length === 0
-              ? 'Your quest log is empty. Forge a quest to begin earning XP and gold.'
-              : 'Try a different filter, or forge a new quest.'}
+              ? 'The journal is blank. Post a quest to start banking XP and gold.'
+              : 'Try a different filter, or post something new.'}
           </p>
           {quests.length === 0 && (
             <Button onClick={() => setModalOpen(true)} className="mt-2">
-              Forge My First Quest
+              Post my first quest
             </Button>
           )}
         </div>

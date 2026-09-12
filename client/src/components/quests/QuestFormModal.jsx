@@ -4,7 +4,7 @@ import { Button } from '../ui/Button.jsx';
 import { DIFFICULTIES, ATTRIBUTES } from '../../lib/constants.js';
 
 const inputCls =
-  'w-full rounded-lg border border-white/10 bg-void-900/80 px-3 py-2 text-sm text-white placeholder-slate-500 transition-colors focus:border-arcane-400/50';
+  'w-full rounded-xl border border-slate-50/10 bg-void-900/80 px-3 py-2 text-sm text-white placeholder-slate-500 transition-colors focus:border-arcane-400/50';
 
 export function QuestFormModal({ open, onClose, onCreate, creating }) {
   const [title, setTitle] = useState('');
@@ -30,7 +30,7 @@ export function QuestFormModal({ open, onClose, onCreate, creating }) {
   };
 
   return (
-    <Modal open={open} onClose={onClose} title="Forge a New Quest">
+    <Modal open={open} onClose={onClose} title="Add a Quest">
       <form onSubmit={submit} className="space-y-4">
         <div>
           <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">
@@ -102,7 +102,7 @@ export function QuestFormModal({ open, onClose, onCreate, creating }) {
             Cancel
           </Button>
           <Button type="submit" disabled={creating || !title.trim()}>
-            {creating ? 'Forging…' : 'Forge Quest'}
+            {creating ? 'Posting…' : 'Add quest'}
           </Button>
         </div>
       </form>

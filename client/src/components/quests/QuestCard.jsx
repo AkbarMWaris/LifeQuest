@@ -25,7 +25,7 @@ function Checkmark({ active }) {
         cy="26"
         r="24"
         fill="none"
-        stroke={active ? '#34d399' : 'rgba(139,92,246,0.5)'}
+        stroke={active ? '#90aa6e' : 'rgba(226,160,50,0.5)'}
         strokeWidth="3"
         initial={{ pathLength: 0 }}
         animate={{ pathLength: active ? 1 : 0 }}
@@ -35,7 +35,7 @@ function Checkmark({ active }) {
         <motion.path
           d="M14 27 L22 35 L38 19"
           fill="none"
-          stroke="#34d399"
+          stroke="#90aa6e"
           strokeWidth="4"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -82,6 +82,7 @@ export function QuestCard({ quest, onComplete, onArchive, disabled }) {
       whileHover={{ y: -3 }}
       className="group panel relative flex flex-col gap-3 p-5"
     >
+      <span className="absolute -top-2 left-6 z-10 h-3 w-16 -rotate-3 rounded-sm washi opacity-70" aria-hidden="true" />
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-2">
           <span className={`rounded-full border px-2 py-0.5 text-[11px] font-semibold ${diffStyles[quest.difficulty]}`}>
@@ -122,8 +123,8 @@ export function QuestCard({ quest, onComplete, onArchive, disabled }) {
           ×{quest.completedCount + (done && !isCompleted ? 1 : 0)} completed
         </span>
         {isVanquished ? (
-          <span className="inline-flex items-center gap-2 rounded-lg border border-emerald-400/30 bg-emerald-500/10 px-3 py-1.5 text-sm font-semibold text-emerald-300">
-            <Checkmark active /> Vanquished
+          <span className="inline-flex -rotate-2 items-center gap-2 rounded-xl border-2 border-dashed border-emerald-400/50 bg-emerald-500/10 px-3 py-1.5 font-hand text-lg text-emerald-300">
+            <Checkmark active /> Done
           </span>
         ) : (
           <Button

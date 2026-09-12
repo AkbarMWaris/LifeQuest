@@ -35,7 +35,7 @@ export function Modal({ open, onClose, title, children, width = 'max-w-lg' }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.95 }}
             transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-            className={`relative w-full ${width} rounded-2xl border border-arcane-500/20 bg-void-800 p-6 shadow-panel`}
+            className={`relative w-full ${width} rounded-3xl border border-gold-500/25 bg-void-800 p-6 shadow-panel`}
           >
             {title && <h2 className="mb-4 font-display text-xl font-bold text-white">{title}</h2>}
             {children}

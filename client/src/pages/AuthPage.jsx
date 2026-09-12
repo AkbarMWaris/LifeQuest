@@ -8,7 +8,7 @@ import { FloatingRunes } from '../components/effects/FloatingRunes.jsx';
 import { Button } from '../components/ui/Button.jsx';
 
 const inputCls =
-  'w-full rounded-lg border border-white/10 bg-void-900/80 px-4 py-2.5 text-sm text-white placeholder-slate-500 transition-colors focus:border-arcane-400/50';
+  'w-full rounded-xl border border-slate-50/10 bg-void-900/80 px-4 py-2.5 text-sm text-white placeholder-slate-500 transition-colors focus:border-arcane-400/50';
 
 export function AuthPage({ mode }) {
   const isSignup = mode === 'signup';
@@ -28,10 +28,10 @@ export function AuthPage({ mode }) {
     try {
       if (isSignup) {
         await signup(email, password, displayName);
-        toast.success(`Welcome to the realm, ${displayName.split(' ')[0]}! ⚔️`);
+        toast.success(`Welcome to the loft, ${displayName.split(' ')[0]}! ✒️`);
       } else {
         await login(email, password);
-        toast.success('Welcome back, hero!');
+        toast.success("Welcome back — the kettle's on.");
       }
       navigate('/dashboard');
     } catch (err) {
@@ -54,13 +54,13 @@ export function AuthPage({ mode }) {
       >
         <div className="mb-6 flex flex-col items-center gap-3">
           <Link to="/" className="flex items-center gap-2">
-            <span className="text-2xl">⚔️</span>
-            <span className="font-display text-2xl font-black text-white">
+            <img src="/favicon.svg" alt="" className="h-10 w-10 rounded-xl border border-gold-500/30 shadow-gold" />
+            <span className="font-display text-2xl font-bold text-white">
               Life<span className="text-arcane-300">Quest</span>
             </span>
           </Link>
-          <p className="text-sm text-slate-400">
-            {isSignup ? 'Forge your hero and begin the adventure.' : 'Continue your legend.'}
+          <p className="font-hand text-lg text-slate-400">
+            {isSignup ? 'a fresh page in the journal' : 'welcome back to the journal'}
           </p>
         </div>
 
@@ -74,7 +74,7 @@ export function AuthPage({ mode }) {
                 className={inputCls}
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
-                placeholder="e.g. Sir Disciplined"
+                placeholder="e.g. Alex the consistent"
                 maxLength={40}
                 required
               />
@@ -107,7 +107,7 @@ export function AuthPage({ mode }) {
           </div>
 
           <Button type="submit" variant="primary" size="lg" className="w-full" disabled={busy}>
-            {busy ? 'Crossing the gate…' : isSignup ? 'Forge My Hero' : 'Enter the Realm'}
+            {busy ? 'Just a moment…' : isSignup ? 'Create my hero' : 'Sign me in'}
           </Button>
 
           <p className="pt-2 text-center text-sm text-slate-400">
@@ -130,7 +130,7 @@ export function AuthPage({ mode }) {
         </form>
 
         <Link to="/" className="mt-4 block text-center text-xs text-slate-500 hover:text-slate-300">
-          ← Back to the tavern
+          ← back to the journal
         </Link>
       </motion.div>
     </div>

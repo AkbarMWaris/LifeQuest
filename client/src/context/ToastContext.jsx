@@ -27,10 +27,10 @@ export function ToastProvider({ children }) {
   );
 
   const styles = {
-    success: 'border-emerald-400/40 bg-emerald-950/90 text-emerald-200',
-    error: 'border-rose-400/40 bg-rose-950/90 text-rose-200',
+    success: 'border-emerald-400/40 bg-void-800/95 text-emerald-300',
+    error: 'border-rose-400/40 bg-void-800/95 text-rose-300',
     info: 'border-arcane-400/40 bg-void-800/95 text-slate-200',
-    gold: 'border-gold/50 bg-[#2a2210]/95 text-gold-300',
+    gold: 'border-gold/50 bg-void-800/95 text-gold-300',
   };
 
   const icons = { success: '✓', error: '✕', info: 'ℹ', gold: '◆' };

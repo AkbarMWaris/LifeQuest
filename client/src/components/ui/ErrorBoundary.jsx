@@ -19,19 +19,19 @@ export class ErrorBoundary extends Component {
       return (
         <div className="grid min-h-screen place-items-center bg-void-950 p-8 text-center">
           <div className="max-w-md space-y-4">
-            <span className="text-6xl">⚠️</span>
-            <h1 className="font-display text-2xl font-black text-white">The Realm Has Cracked</h1>
+            <span className="text-6xl">🍵</span>
+            <h1 className="font-display text-2xl font-medium text-white">The page slipped off the desk</h1>
             <p className="text-sm text-slate-400">
-              An unexpected error occurred. Refreshing the page should restore the portal.
+              Something unexpected happened. A refresh usually puts it back.
             </p>
-            <p className="max-w-full overflow-auto rounded-lg bg-void-800 p-3 text-left font-mono text-xs text-rose-300">
+            <p className="max-w-full overflow-auto rounded-xl bg-void-800 p-3 text-left font-mono text-xs text-rose-300">
               {this.state.error.message}
             </p>
             <button
               onClick={() => { this.setState({ error: null }); window.location.reload(); }}
-              className="rounded-lg bg-gradient-to-b from-arcane-400 to-arcane-600 px-6 py-2.5 font-semibold text-white shadow-glow"
+              className="rounded-xl bg-gradient-to-b from-arcane-400 to-arcane-600 px-6 py-2.5 font-semibold text-void-950 shadow-glow"
             >
-              Reload the Realm
+              Reload the page
             </button>
           </div>
         </div>

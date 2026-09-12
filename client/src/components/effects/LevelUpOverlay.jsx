@@ -35,13 +35,13 @@ export function LevelUpOverlay({ open, level, attr, attrLeveledUp, attribute, on
               transition={{ delay: 0.2 }}
               className="font-display text-sm uppercase tracking-[0.3em] text-gold-400"
             >
-              Ascension
+              Level Up
             </motion.p>
             <motion.h2
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.25, type: 'spring', stiffness: 300, damping: 12 }}
-              className="text-glow-gold mt-1 font-display text-5xl font-black text-gold"
+              className="text-glow-gold mt-1 font-display text-5xl font-bold text-gold"
             >
               Level {level}
             </motion.h2>
@@ -58,9 +58,9 @@ export function LevelUpOverlay({ open, level, attr, attrLeveledUp, attribute, on
             <motion.button
               whileTap={{ scale: 0.94 }}
               onClick={onClose}
-              className="mt-7 rounded-lg bg-gradient-to-b from-gold-300 to-gold-600 px-6 py-2.5 font-display font-bold text-void-950 shadow-gold"
+              className="mt-7 rounded-xl bg-gradient-to-b from-gold-300 to-gold-600 px-6 py-2.5 font-display font-bold text-void-950 shadow-gold"
             >
-              Continue the Journey
+              Back to it
             </motion.button>
           </motion.div>
         </motion.div>

@@ -11,7 +11,7 @@ import { SkeletonCard } from '../components/ui/Skeleton.jsx';
 import { Button } from '../components/ui/Button.jsx';
 
 const inputCls =
-  'w-full rounded-lg border border-white/10 bg-void-900/80 px-3 py-2 text-sm text-white placeholder-slate-500 transition-colors focus:border-arcane-400/50';
+  'w-full rounded-xl border border-slate-50/10 bg-void-900/80 px-3 py-2 text-sm text-white placeholder-slate-500 transition-colors focus:border-arcane-400/50';
 
 function StatTile({ label, value, suffix, accent }) {
   return (
@@ -32,13 +32,15 @@ export function Profile() {
   const [loading, setLoading] = useState(true);
   const [displayName, setDisplayName] = useState('');
   const [avatarUrl, setAvatarUrl] = useState('');
-  const [theme, setTheme] = useState('void');
+  const [theme, setTheme] = useState('coffee');
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
+    const themeMap = { void: 'coffee', astral: 'meadow', dungeon: 'midnight' };
     setDisplayName(user?.displayName || '');
     setAvatarUrl(user?.avatarUrl || '');
-    setTheme(user?.theme || 'void');
+    const t = user?.theme;
+    setTheme((t && themeMap[t]) || (['coffee', 'meadow', 'midnight'].includes(t) ? t : 'coffee'));
   }, [user]);
 
   useEffect(() => {
@@ -80,8 +82,8 @@ export function Profile() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-display text-3xl font-black text-white">Hero's Chronicle</h1>
-        <p className="mt-1 text-sm text-slate-400">Stats, achievements and the legend you're building.</p>
+        <h1 className="font-display text-3xl font-medium text-white">The Chronicle</h1>
+        <p className="mt-1 text-sm text-slate-400">Your page in the journal — stats, keepsakes and progress.</p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
@@ -98,7 +100,7 @@ export function Profile() {
                 {user?.avatarUrl ? <img src={user.avatarUrl} className="h-full w-full object-cover" alt="" /> : '🧙'}
               </div>
               <h2 className="mt-3 font-display text-xl font-bold text-white">{user?.displayName}</h2>
-              <p className="text-sm text-arcane-300">Level {profile?.currentLevel} Adventurer</p>
+              <p className="text-sm text-arcane-300">Level {profile?.currentLevel} · hero</p>
               <p className="mt-1 text-xs text-slate-500">{user?.email}</p>
               <p className="mt-4 font-mono text-sm text-slate-300">
                 <span className="text-arcane-300">{profile?.totalXp.toLocaleString()}</span> lifetime XP
@@ -114,7 +116,7 @@ export function Profile() {
           </div>
 
           <form onSubmit={save} className="panel space-y-3 p-6">
-            <h3 className="font-display font-bold text-white">Edit Chronicle</h3>
+            <h3 className="font-display font-bold text-white">Edit profile</h3>
             <div>
               <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">Hero name</label>
               <input className={inputCls} value={displayName} onChange={(e) => setDisplayName(e.target.value)} maxLength={40} />
@@ -126,9 +128,9 @@ export function Profile() {
             <div>
               <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">Theme</label>
               <select className={inputCls} value={theme} onChange={(e) => setTheme(e.target.value)}>
-                <option value="void">Void (dark fantasy)</option>
-                <option value="astral">Astral</option>
-                <option value="dungeon">Dungeon</option>
+                <option value="coffee">Coffee Shop — warm espresso &amp; honey</option>
+                <option value="meadow">Meadow — mossy greens &amp; gold</option>
+                <option value="midnight">Midnight — graphite &amp; moon periwinkle</option>
               </select>
             </div>
             <div className="flex gap-2 pt-1">

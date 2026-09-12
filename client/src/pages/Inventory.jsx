@@ -76,8 +76,8 @@ export function Inventory() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-display text-3xl font-black text-white">Inventory</h1>
-        <p className="mt-1 text-sm text-slate-400">Everything you've earned, equipped, and saved.</p>
+        <h1 className="font-display text-3xl font-medium text-white">The Satchel</h1>
+        <p className="mt-1 text-sm text-slate-400">Everything you've earned and kept.</p>
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
@@ -108,9 +108,9 @@ export function Inventory() {
       ) : filtered.length === 0 ? (
         <div className="panel flex flex-col items-center gap-3 p-14 text-center">
           <span className="animate-float text-5xl">🎒</span>
-          <p className="font-display text-lg font-bold text-white">Your satchel is empty</p>
+          <p className="font-display text-lg font-bold text-white">The satchel is empty</p>
           <p className="max-w-sm text-sm text-slate-400">
-            Complete quests for gold, then visit the bazaar to claim your first treasure.
+            Earn gold from quests, then visit the stall to find something worth keeping.
           </p>
         </div>
       ) : (

@@ -13,10 +13,11 @@ export function Topbar() {
   const active = Boolean(profile?.lastActiveDate === new Date().toISOString().slice(0, 10));
 
   return (
-    <header className="sticky top-0 z-20 border-b border-white/5 bg-void-950/70 backdrop-blur-lg">
+    <header className="sticky top-0 z-20 border-b border-slate-50/10 bg-void-950/70 backdrop-blur-lg">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 lg:px-8">
         <Link to="/dashboard" className="hidden items-center gap-2 lg:flex">
-          <span className="font-display text-lg font-black text-white">
+          <img src="/favicon.svg" alt="" className="h-8 w-8 rounded-lg border border-gold-500/30" />
+          <span className="font-display text-lg font-bold text-white">
             Life<span className="text-arcane-300">Quest</span>
           </span>
         </Link>
@@ -44,7 +45,7 @@ export function Topbar() {
             {user?.avatarUrl ? (
               <img src={user.avatarUrl} alt="" className="h-full w-full object-cover" />
             ) : (
-              <span>{user?.displayName?.[0]?.toUpperCase() || '🗡'}</span>
+              <span>{user?.displayName?.[0]?.toUpperCase() || '☕'}</span>
             )}
           </motion.div>
         </div>

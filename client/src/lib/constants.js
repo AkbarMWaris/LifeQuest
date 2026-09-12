@@ -13,11 +13,11 @@ export const QUEST_TYPES = {
 };
 
 export const ATTRIBUTES = {
-  strength: { label: 'Strength', icon: '🏋️', color: '#fb7185' },
-  focus: { label: 'Focus', icon: '🎯', color: '#8b5cf6' },
-  creativity: { label: 'Creativity', icon: '🎨', color: '#38bdf8' },
-  social: { label: 'Social', icon: '🤝', color: '#34d399' },
-  discipline: { label: 'Discipline', icon: '⚔️', color: '#f5c542' },
+  strength: { label: 'Strength', icon: '🏋️', color: '#e2805c' },
+  focus: { label: 'Focus', icon: '🎯', color: '#d9862f' },
+  creativity: { label: 'Creativity', icon: '🎨', color: '#a695c6' },
+  social: { label: 'Social', icon: '🤝', color: '#8fa86e' },
+  discipline: { label: 'Discipline', icon: '⚔️', color: '#e3b23c' },
 };
 
 export const RARITY_STYLES = {
@@ -27,10 +27,10 @@ export const RARITY_STYLES = {
 };
 
 export const TIER_STYLES = {
-  bronze: { text: 'text-amber-600', glow: 'shadow-[0_0_12px_-4px_rgba(245,158,11,0.5)]' },
-  silver: { text: 'text-slate-300', glow: 'shadow-[0_0_12px_-4px_rgba(203,213,225,0.5)]' },
-  gold: { text: 'text-gold', glow: 'shadow-[0_0_12px_-4px_rgba(245,197,66,0.6)]' },
-  legendary: { text: 'text-arcane-300', glow: 'shadow-[0_0_14px_-4px_rgba(139,92,246,0.7)]' },
+  bronze: { text: 'text-amber-600', glow: 'shadow-[0_0_12px_-4px_rgba(219,156,58,0.5)]' },
+  silver: { text: 'text-slate-300', glow: 'shadow-[0_0_12px_-4px_rgba(212,201,173,0.5)]' },
+  gold: { text: 'text-gold', glow: 'shadow-[0_0_12px_-4px_rgb(var(--c-gold-500)_/_0.6)]' },
+  legendary: { text: 'text-arcane-300', glow: 'shadow-[0_0_14px_-4px_rgb(var(--c-arcane-300)_/_0.7)]' },
 };
 
 export function xpToNextLevel(progress) {

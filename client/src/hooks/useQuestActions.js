@@ -27,7 +27,7 @@ export function useQuestActions() {
       if (rewards.streakBonus > 0) {
         toast.gold(`🔥 ${rewards.streak} day streak! +${rewards.streakBonus} streak bonus XP`);
       }
-      toast.success(`⚔️ "${quest.title}" complete! +${rewards.xp || 0} XP, +${rewards.gold || 0} 🪙`);
+      toast.success(`✒️ "${quest.title}" — crossed off! +${rewards.xp || 0} XP, +${rewards.gold || 0} 🪙`);
 
       if (rewards.multiplier && rewards.multiplier > 1) {
         toast.info(`🧪 ${rewards.multiplier}× multiplier active!`);

@@ -13,14 +13,14 @@ export function AttributeRadar({ attributes }) {
     <div className="h-64 w-full">
       <ResponsiveContainer width="100%" height="100%">
         <RadarChart data={data} outerRadius="72%">
-          <PolarGrid stroke="rgba(139,92,246,0.18)" />
-          <PolarAngleAxis dataKey="attribute" tick={{ fill: '#94a3b8', fontSize: 12, fontFamily: 'JetBrains Mono' }} />
+          <PolarGrid stroke="rgb(var(--c-arcane-500) / 0.25)" />
+          <PolarAngleAxis dataKey="attribute" tick={{ fill: '#a29068', fontSize: 12, fontFamily: 'JetBrains Mono' }} />
           <Radar
             name="Level"
             dataKey="level"
-            stroke="#8b5cf6"
-            fill="#8b5cf6"
-            fillOpacity={0.28}
+            stroke="rgb(var(--c-arcane-500))"
+            fill="rgb(var(--c-arcane-500))"
+            fillOpacity={0.26}
             strokeWidth={2}
             isAnimationActive
             animationDuration={900}

@@ -8,10 +8,10 @@ export function FloatingRunes({ count = 14 }) {
         id: i,
         left: Math.random() * 100,
         top: Math.random() * 100,
-        size: 12 + Math.random() * 18,
-        duration: 9 + Math.random() * 12,
+        size: 11 + Math.random() * 14,
+        duration: 10 + Math.random() * 14,
         delay: -Math.random() * 20,
-        charr: ['✦', '✧', '⬡', '❖', '✳', '⋆', '◆'][i % 7],
+        charr: ['✦', '·', '☁', '∘', '❋', '⋆', '·'][i % 7],
       })),
     [count]
   );
@@ -21,9 +21,9 @@ export function FloatingRunes({ count = 14 }) {
       {runes.map((r) => (
         <motion.span
           key={r.id}
-          className="absolute select-none text-arcane-400/15"
+          className="absolute select-none text-arcane-400/10"
           style={{ left: `${r.left}%`, top: `${r.top}%`, fontSize: r.size }}
-          animate={{ y: [0, -40, 0], opacity: [0.4, 0.9, 0.4], rotate: [0, 40, 0] }}
+          animate={{ y: [0, -60, 0], opacity: [0.2, 0.6, 0.2], rotate: [0, 25, 0] }}
           transition={{ duration: r.duration, repeat: Infinity, delay: r.delay, ease: 'easeInOut' }}
         >
           {r.charr}

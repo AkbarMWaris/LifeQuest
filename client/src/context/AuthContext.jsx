@@ -51,7 +51,10 @@ export function AuthProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    document.documentElement.dataset.theme = user?.theme || 'void';
+    const themeMap = { void: 'coffee', astral: 'meadow', dungeon: 'midnight' };
+    const t = user?.theme;
+    const theme = (t && themeMap[t]) || (['coffee', 'meadow', 'midnight'].includes(t) ? t : 'coffee');
+    document.documentElement.dataset.theme = theme;
   }, [user?.theme]);
 
   const applyRewards = useCallback((payload) => {

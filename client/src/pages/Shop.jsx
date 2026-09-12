@@ -34,7 +34,7 @@ export function Shop() {
       await api.post('/shop/purchase', { itemId: item.id });
       await refreshProfile();
       setOwned((prev) => new Set([...prev, item.id]));
-      toast.gold(`🛒 Purchased "${item.name}"! It glimmers in your inventory.`);
+      toast.gold(`🛒 "${item.name}" — placed on the shelf.`);
     } catch (err) {
       toast.error(errorMessage(err));
     } finally {
@@ -46,8 +46,8 @@ export function Shop() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-display text-3xl font-black text-white">The Bazaar</h1>
-          <p className="mt-1 text-sm text-slate-400">Spend your hard-earned gold on glory and gear.</p>
+          <h1 className="font-display text-3xl font-medium text-white">The Stall</h1>
+          <p className="mt-1 text-sm text-slate-400">Small comforts for your hard-earned coin.</p>
         </div>
         <div className="panel flex items-center gap-3 px-5 py-3">
           <span className="text-xs uppercase tracking-wide text-slate-500">Your gold</span>

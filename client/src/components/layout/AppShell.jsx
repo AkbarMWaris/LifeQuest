@@ -11,6 +11,7 @@ export function AppShell() {
 
   return (
     <div className="relative min-h-screen">
+      <div className="grain-overlay" aria-hidden="true" />
       <FloatingRunes />
       <Sidebar />
       <div className="relative z-10 flex min-h-screen flex-col lg:pl-60">
@@ -35,7 +36,7 @@ export function AppShell() {
           )}
         </main>
         <footer className="mx-auto w-full max-w-6xl px-4 pb-20 pt-4 text-center text-xs text-slate-600 lg:px-8 lg:pb-6">
-          LifeQuest — every quest is a step toward the hero you're becoming.
+          <span className="handnote text-sm text-slate-500">LifeQuest · small quests, done daily, kept warm.</span>
         </footer>
       </div>
     </div>
