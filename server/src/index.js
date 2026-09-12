@@ -1,4 +1,7 @@
 import 'dotenv/config';
+import path from 'node:path';
+import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import express from 'express';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
@@ -15,6 +18,9 @@ import { ensureSeedData } from './seed.js';
 
 const app = express();
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const clientDist = path.resolve(__dirname, '../../client/dist');
+
 app.use(cors({ origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173', credentials: true }));
 app.use(express.json({ limit: '100kb' }));
 
@@ -30,6 +36,15 @@ app.use('/api/completions', completionRoutes);
 app.use('/api/shop', shopRoutes);
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/achievements', achievementRoutes);
+
+// In production, serve the built client (npm run build) — one deployable unit.
+if (fs.existsSync(clientDist)) {
+  app.use(express.static(clientDist, { maxAge: '1d', etag: true }));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) return next();
+    res.sendFile(path.join(clientDist, 'index.html'));
+  });
+}
 
 app.use(errorHandler);
 
