@@ -87,6 +87,7 @@ router.post(
         itemId: userItem._id,
         name: userItem.itemId.name,
         multiplier: Number(effectJson.multiplier) || 1,
+        goldMultiplier: Number(effectJson.goldMultiplier) || 1,
         expiresAt,
       });
     } else if (type === 'streak_freeze') {

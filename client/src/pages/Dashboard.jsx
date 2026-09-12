@@ -114,7 +114,9 @@ export function Dashboard() {
               {profile.activeBuffs.map((b, i) => (
                 <div key={i} className="flex items-center justify-between rounded-lg bg-arcane-500/10 px-3 py-2 text-sm">
                   <span className="text-arcane-200">🧪 {b.name}</span>
-                  <span className="font-mono text-xs text-gold-300">{b.multiplier}×</span>
+                  <span className="font-mono text-xs text-gold-300">
+                    {b.goldMultiplier > 1 ? `🪙 ${b.goldMultiplier}×` : `${b.multiplier}×`}
+                  </span>
                 </div>
               ))}
             </div>

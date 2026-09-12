@@ -12,22 +12,40 @@ export function useQuestActions() {
   const completeQuest = useCallback(
     async (quest) => {
       const { data } = await api.post(`/completions/quests/${quest.id}/complete`);
-      applyRewards(data);
 
-      const { rewards, levelUps, attrLeveledUp, attr, loot, unlockedAchievements } = data;
+      if (data?.payload) {
+        applyRewards(data);
+      }
+
+      const rewards = data?.rewards || {};
+      const levelUps = data?.levelUps || 0;
+      const attrLeveledUp = data?.attrLeveledUp || false;
+      const attr = data?.attr || null;
+      const loot = data?.loot || null;
+      const unlockedAchievements = data?.unlockedAchievements || [];
+
       if (rewards.streakBonus > 0) {
         toast.gold(`🔥 ${rewards.streak} day streak! +${rewards.streakBonus} streak bonus XP`);
       }
-      toast.success(`⚔️ "${quest.title}" complete! +${rewards.xp} XP, +${rewards.gold} 🪙`);
+      toast.success(`⚔️ "${quest.title}" complete! +${rewards.xp || 0} XP, +${rewards.gold || 0} 🪙`);
 
-      if (unlockedAchievements?.length) {
+      if (rewards.multiplier && rewards.multiplier > 1) {
+        toast.info(`🧪 ${rewards.multiplier}× multiplier active!`);
+      }
+
+      if (unlockedAchievements.length) {
         unlockedAchievements.forEach((a) => toast.info(`🏆 Achievement: ${a.name}`));
       }
       if (loot) {
         toast.gold(`💎 Loot drop! You found "${loot.name}"`);
       }
       if (levelUps > 0) {
-        setLevelUp({ level: data.payload.profile.currentLevel, attrLeveledUp, attribute: attr ? ATTRIBUTES[attr]?.label : null });
+        const newLevel = data?.payload?.profile?.currentLevel;
+        setLevelUp({
+          level: newLevel || 0,
+          attrLeveledUp,
+          attribute: attr ? (ATTRIBUTES[attr]?.label || attr) : null,
+        });
       }
       return data;
     },

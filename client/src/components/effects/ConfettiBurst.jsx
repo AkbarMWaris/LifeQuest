@@ -4,19 +4,20 @@ import { motion } from 'framer-motion';
 const COLORS = ['#8b5cf6', '#f5c542', '#34d399', '#fb7185', '#38bdf8', '#ffffff'];
 
 export function ConfettiBurst({ count = 60 }) {
-  const pieces = Array.from({ length: count }).map((_, i) => {
-    const angle = (i / count) * Math.PI * 2;
-    const dist = 120 + (i % 5) * 55;
+  const pieces = Array.from({ length: count }).map((_, idx) => {
+    const angle = (idx / count) * Math.PI * 2;
+    const dist = 120 + (idx % 5) * 55;
     const x = Math.cos(angle) * dist;
     const y = Math.sin(angle) * dist - 30;
     return {
-      id: i,
+      id: idx,
       x,
       y,
       rotate: Math.random() * 720 - 360,
       scale: 0.5 + Math.random() * 0.9,
-      color: COLORS[i % COLORS.length],
-      rounded: i % 3 === 0,
+      color: COLORS[idx % COLORS.length],
+      rounded: idx % 3 === 0,
+      dur: 1.4 + (idx % 4) * 0.18,
     };
   });
 
@@ -29,7 +30,7 @@ export function ConfettiBurst({ count = 60 }) {
           style={{ width: 8, height: 8, backgroundColor: p.color, borderRadius: p.rounded ? '50%' : '2px' }}
           initial={{ x: 0, y: 0, opacity: 1, scale: 0 }}
           animate={{ x: p.x, y: p.y, opacity: [1, 1, 0], scale: p.scale, rotate: p.rotate }}
-          transition={{ duration: 1.4 + (i % 4) * 0.18, ease: 'easeOut' }}
+          transition={{ duration: p.dur, ease: 'easeOut' }}
         />
       ))}
     </div>

@@ -13,6 +13,7 @@ const buffSchema = new mongoose.Schema(
     itemId: { type: mongoose.Schema.Types.ObjectId, ref: 'UserItem' },
     name: { type: String, default: 'Elixir' },
     multiplier: { type: Number, default: 1 },
+    goldMultiplier: { type: Number, default: 1 },
     expiresAt: { type: Date, required: true },
   },
   { _id: false }

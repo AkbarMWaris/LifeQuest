@@ -62,6 +62,7 @@ export function QuestCard({ quest, onComplete, onArchive, disabled }) {
     setOptimistic(true);
     try {
       await onComplete(quest);
+      setTimeout(() => setOptimistic(false), 2000);
     } catch (e) {
       setOptimistic(false);
     } finally {
@@ -138,7 +139,7 @@ export function QuestCard({ quest, onComplete, onArchive, disabled }) {
                   animate={{ opacity: 1, scale: 1 }}
                   className="flex items-center gap-1.5"
                 >
-                  <Checkmark active /> <span className="animate-pulse">Rewarding…</span>
+                  <Checkmark active /> <span>Complete</span>
                 </motion.span>
               ) : (
                 <motion.span key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>

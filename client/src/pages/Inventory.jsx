@@ -50,7 +50,7 @@ export function Inventory() {
       await Promise.all([load(), refreshProfile()]);
       toast.success(
         item.type === 'buff'
-          ? `🧪 "${item.name}" consumed. ${item.effectJson?.multiplier || 1}× XP for ${item.effectJson?.durationMinutes || 60} minutes!`
+          ? `🧪 "${item.name}" consumed. ${item.effectJson?.goldMultiplier > 1 ? `🪙 ${item.effectJson.goldMultiplier}× gold for ${item.effectJson?.durationMinutes || 60} minutes!` : `${item.effectJson?.multiplier || 1}× XP for ${item.effectJson?.durationMinutes || 60} minutes!`}`
           : `🧿 "Heartstone" glows. Your streak is protected.`
       );
     } catch (err) {

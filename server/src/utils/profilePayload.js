@@ -24,7 +24,7 @@ export async function buildProfilePayload(userId) {
   const activeBuffs = Array.isArray(profile.activeBuffs)
     ? profile.activeBuffs
         .filter((b) => new Date(b.expiresAt).getTime() > nowMs)
-        .map((b) => ({ name: b.name, multiplier: b.multiplier, expiresAt: b.expiresAt }))
+        .map((b) => ({ name: b.name, multiplier: b.multiplier, goldMultiplier: b.goldMultiplier, expiresAt: b.expiresAt }))
     : [];
 
   return {

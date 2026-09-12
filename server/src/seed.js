@@ -22,6 +22,15 @@ export const SHOP_BLUEPRINTS = [
     effectJson: { multiplier: 2, durationMinutes: 45 },
   },
   {
+    name: 'Golden Hourglass',
+    type: 'buff',
+    costGold: 300,
+    rarity: 'rare',
+    icon: '⏳',
+    description: 'A gilded hourglass of the merchants. Doubles gold earned from quests for 45 minutes.',
+    effectJson: { goldMultiplier: 2, durationMinutes: 45 },
+  },
+  {
     name: 'Heartstone of Memory',
     type: 'streak_freeze',
     costGold: 90,
@@ -110,13 +119,21 @@ export const ACHIEVEMENT_BLUEPRINTS = [
 ];
 
 export async function ensureSeedData() {
-  const [shopCount, achCount] = await Promise.all([ShopItem.countDocuments(), Achievement.countDocuments()]);
+  const shopCount = await ShopItem.countDocuments();
+  const achCount = await Achievement.countDocuments();
 
   if (shopCount === 0) {
     await ShopItem.insertMany(SHOP_BLUEPRINTS);
     console.log(`[LifeQuest] Seeded ${SHOP_BLUEPRINTS.length} shop items.`);
   } else {
-    console.log(`[LifeQuest] Shop already seeded (${shopCount} items).`);
+    const existingNames = new Set((await ShopItem.find({}).select('name').lean()).map((i) => i.name));
+    const missing = SHOP_BLUEPRINTS.filter((b) => !existingNames.has(b.name));
+    if (missing.length > 0) {
+      await ShopItem.insertMany(missing);
+      console.log(`[LifeQuest] Shop synced — added ${missing.length} new item(s).`);
+    } else {
+      console.log(`[LifeQuest] Shop already seeded (${shopCount} items).`);
+    }
   }
 
   if (achCount === 0) {

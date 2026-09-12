@@ -85,13 +85,17 @@ router.post(
     if (Array.isArray(profile.activeBuffs)) {
       profile.activeBuffs = profile.activeBuffs.filter((b) => new Date(b.expiresAt).getTime() > nowMs);
     }
-    const multiplier = Array.isArray(profile.activeBuffs) && profile.activeBuffs.length > 0
-      ? Math.max(...profile.activeBuffs.map((b) => Number(b.multiplier) || 1))
+    const activeBuffs = Array.isArray(profile.activeBuffs) ? profile.activeBuffs : [];
+    const multiplier = activeBuffs.length > 0
+      ? Math.max(...activeBuffs.map((b) => Number(b.multiplier) || 1))
+      : 1;
+    const goldMultiplier = activeBuffs.length > 0
+      ? Math.max(...activeBuffs.map((b) => Number(b.goldMultiplier) || 1))
       : 1;
 
     const xpAwarded = Math.round(quest.xpReward * multiplier);
     const totalXpAwarded = xpAwarded + bonus.xp;
-    const goldAwarded = quest.goldReward + bonus.gold;
+    const goldAwarded = Math.round((quest.goldReward + bonus.gold) * goldMultiplier);
 
     const attr = quest.attribute;
     profile.attributes[attr].xp += totalXpAwarded;
@@ -142,7 +146,7 @@ router.post(
 
     res.json({
       message: 'Quest complete!',
-      rewards: { xp: totalXpAwarded, gold: goldAwarded, streakBonus: bonus.xp, streak, multiplier },
+      rewards: { xp: totalXpAwarded, gold: goldAwarded, streakBonus: bonus.xp, streak, multiplier, goldMultiplier },
       levelUps,
       attrLeveledUp,
       attr,
