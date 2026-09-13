@@ -6,6 +6,10 @@ import { useToast } from '../context/ToastContext.jsx';
 import { errorMessage } from '../api/client.js';
 import { FloatingRunes } from '../components/effects/FloatingRunes.jsx';
 import { Button } from '../components/ui/Button.jsx';
+import { IconBolt } from '../components/ui/icons.jsx';
+
+const DEMO_EMAIL = 'demo@lifequest.app';
+const DEMO_PASSWORD = 'demo1234';
 
 const inputCls =
   'w-full rounded-xl border border-slate-50/10 bg-void-900/80 px-4 py-2.5 text-sm text-white placeholder-slate-500 transition-colors focus:border-arcane-400/50';
@@ -33,6 +37,21 @@ export function AuthPage({ mode }) {
         await login(email, password);
         toast.success("Welcome back — the kettle's on.");
       }
+      navigate('/dashboard');
+    } catch (err) {
+      toast.error(errorMessage(err));
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const demoLogin = async () => {
+    setEmail(DEMO_EMAIL);
+    setPassword(DEMO_PASSWORD);
+    setBusy(true);
+    try {
+      await login(DEMO_EMAIL, DEMO_PASSWORD);
+      toast.success("Welcome back — the kettle's on.");
       navigate('/dashboard');
     } catch (err) {
       toast.error(errorMessage(err));
@@ -109,6 +128,18 @@ export function AuthPage({ mode }) {
           <Button type="submit" variant="primary" size="lg" className="w-full" disabled={busy}>
             {busy ? 'Just a moment…' : isSignup ? 'Create my hero' : 'Sign me in'}
           </Button>
+
+          {!isSignup && (
+            <div className="border-t border-slate-50/10 pt-4">
+              <p className="mb-2 text-center font-mono text-[10px] uppercase tracking-[0.18em] text-slate-400">
+                …or skip straight in
+              </p>
+              <Button type="button" variant="ghost" size="lg" className="w-full" onClick={demoLogin} disabled={busy}>
+                <IconBolt size={16} className="text-arcane-300" />
+                Quick demo login
+              </Button>
+            </div>
+          )}
 
           <p className="pt-2 text-center text-sm text-slate-400">
             {isSignup ? (

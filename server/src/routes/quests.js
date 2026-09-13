@@ -62,13 +62,34 @@ router.patch(
   })
 );
 
-router.delete(
-  '/:id',
+router.patch(
+  '/:id/archive',
   asyncHandler(async (req, res) => {
     const quest = await Quest.findOne({ _id: req.params.id, userId: req.userId });
     if (!quest) return res.status(404).json({ error: 'Quest not found.' });
     quest.isArchived = true;
     await quest.save();
+    res.json({ ...quest.toObject(), id: String(quest._id) });
+  })
+);
+
+router.patch(
+  '/:id/unarchive',
+  asyncHandler(async (req, res) => {
+    const quest = await Quest.findOne({ _id: req.params.id, userId: req.userId });
+    if (!quest) return res.status(404).json({ error: 'Quest not found.' });
+    quest.isArchived = false;
+    await quest.save();
+    res.json({ ...quest.toObject(), id: String(quest._id) });
+  })
+);
+
+router.delete(
+  '/:id',
+  asyncHandler(async (req, res) => {
+    const quest = await Quest.findOne({ _id: req.params.id, userId: req.userId });
+    if (!quest) return res.status(404).json({ error: 'Quest not found.' });
+    await quest.deleteOne();
     res.json({ ok: true });
   })
 );

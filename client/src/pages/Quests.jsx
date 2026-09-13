@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { api, errorMessage } from '../api/client.js';
 import { useToast } from '../context/ToastContext.jsx';
@@ -13,7 +14,7 @@ import { IconCoffee } from '../components/ui/icons.jsx';
 
 export function Quests() {
   const toast = useToast();
-  const { completeQuest, archiveQuest, levelUp, closeLevelUp } = useQuestActions();
+  const { completeQuest, archiveQuest, deleteQuest, levelUp, closeLevelUp } = useQuestActions();
   const [quests, setQuests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
@@ -50,6 +51,11 @@ export function Quests() {
     }
   };
 
+  const removeQuest = async (quest) => {
+    if (!window.confirm(`Permanently remove "${quest.title}"? This cannot be undone.`)) return;
+    await deleteQuest(quest, load);
+  };
+
   const filtered = useMemo(
     () =>
       quests.filter(
@@ -67,9 +73,14 @@ export function Quests() {
           <h1 className="font-display text-3xl font-medium text-white">The Journal</h1>
           <p className="mt-1 text-sm text-slate-400">Post small quests, cross them off, watch the XP bank.</p>
         </div>
-        <Button variant="gold" onClick={() => setModalOpen(true)} className="px-6">
-          + Post a quest
-        </Button>
+        <div className="flex items-center gap-2">
+          <Link to="/quests/archived" className="rounded-xl border border-slate-50/10 bg-void-800/60 px-4 py-2 text-sm font-semibold text-slate-300 transition-colors hover:border-arcane-400/40 hover:text-white">
+            Archive
+          </Link>
+          <Button variant="gold" onClick={() => setModalOpen(true)} className="px-6">
+            + Post a quest
+          </Button>
+        </div>
       </div>
 
       <QuestFilters
@@ -109,6 +120,7 @@ export function Quests() {
                 quest={q}
                 onComplete={completeQuest}
                 onArchive={() => archiveQuest(q, load)}
+                onDelete={() => removeQuest(q)}
               />
             ))}
           </AnimatePresence>

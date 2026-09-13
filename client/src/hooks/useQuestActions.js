@@ -54,8 +54,28 @@ export function useQuestActions() {
 
   const archiveQuest = useCallback(async (quest, reload) => {
     try {
-      await api.delete(`/quests/${quest.id}`);
+      await api.patch(`/quests/${quest.id}/archive`);
       toast.info(`"${quest.title}" archived.`);
+      reload?.();
+    } catch (err) {
+      toast.error(errorMessage(err));
+    }
+  }, [toast]);
+
+  const unarchiveQuest = useCallback(async (quest, reload) => {
+    try {
+      await api.patch(`/quests/${quest.id}/unarchive`);
+      toast.success(`"${quest.title}" back in the journal.`);
+      reload?.();
+    } catch (err) {
+      toast.error(errorMessage(err));
+    }
+  }, [toast]);
+
+  const deleteQuest = useCallback(async (quest, reload) => {
+    try {
+      await api.delete(`/quests/${quest.id}`);
+      toast.info(`"${quest.title}" deleted forever.`);
       reload?.();
     } catch (err) {
       toast.error(errorMessage(err));
@@ -64,5 +84,5 @@ export function useQuestActions() {
 
   const closeLevelUp = useCallback(() => setLevelUp(false), []);
 
-  return { completeQuest, archiveQuest, levelUp, closeLevelUp };
+  return { completeQuest, archiveQuest, unarchiveQuest, deleteQuest, levelUp, closeLevelUp };
 }

@@ -6,6 +6,7 @@ import { Landing } from './pages/Landing.jsx';
 import { AuthPage } from './pages/AuthPage.jsx';
 import { Dashboard } from './pages/Dashboard.jsx';
 import { Quests } from './pages/Quests.jsx';
+import { ArchivedQuests } from './pages/ArchivedQuests.jsx';
 import { Profile } from './pages/Profile.jsx';
 import { Shop } from './pages/Shop.jsx';
 import { Inventory } from './pages/Inventory.jsx';
@@ -60,6 +61,7 @@ export default function App() {
       >
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/quests" element={<Quests />} />
+        <Route path="/quests/archived" element={<ArchivedQuests />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/inventory" element={<Inventory />} />
         <Route path="/profile" element={<Profile />} />

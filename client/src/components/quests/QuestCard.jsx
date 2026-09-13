@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { DIFFICULTIES, QUEST_TYPES, ATTRIBUTES } from '../../lib/constants.js';
-import { ATTR_ICONS, IconCoin, IconClock } from '../ui/icons.jsx';
+import { ATTR_ICONS, IconCoin, IconClock, IconTrash, IconArchive, IconRefresh } from '../ui/icons.jsx';
 import { Button } from '../ui/Button.jsx';
 
 const diffStyles = {
@@ -49,7 +49,10 @@ function Checkmark({ active }) {
   );
 }
 
-export function QuestCard({ quest, onComplete, onArchive, disabled }) {
+const iconBtn =
+  'grid h-7 w-7 place-items-center rounded-lg border border-slate-50/10 bg-void-800/60 text-slate-400 transition-colors hover:text-white';
+
+export function QuestCard({ quest, onComplete, onArchive, onDelete, onRestore, disabled }) {
   const [completing, setCompleting] = useState(false);
   const [optimistic, setOptimistic] = useState(false);
   const [done, setDone] = useState(false);
@@ -57,8 +60,10 @@ export function QuestCard({ quest, onComplete, onArchive, disabled }) {
   const type = QUEST_TYPES[quest.type] || QUEST_TYPES.one_off;
   const attr = ATTRIBUTES[quest.attribute] || ATTRIBUTES.focus;
   const attrIcon = ATTR_ICONS[attr.icon] || ATTR_ICONS.target;
-  const isCompleted = (quest.type === 'one_off' && quest.completedCount > 0);
+  const isArchived = quest.isArchived === true;
+  const isCompleted = quest.type === 'one_off' && quest.completedCount > 0;
   const isVanquished = done || isCompleted;
+  const completedCount = quest.completedCount + (done && !isCompleted ? 1 : 0);
 
   const handleComplete = async () => {
     if (disabled || completing || isVanquished) return;
@@ -74,6 +79,21 @@ export function QuestCard({ quest, onComplete, onArchive, disabled }) {
     }
   };
 
+  const topControls = isArchived ? null : onArchive || onDelete ? (
+  <div className="flex items-center gap-1">
+    {onArchive && (
+      <button onClick={onArchive} title="Archive quest" className={`${iconBtn} hover:border-arcane-400/40 hover:bg-arcane-500/10 hover:text-arcane-300`}>
+        <IconArchive size={15} />
+      </button>
+    )}
+    {onDelete && (
+      <button onClick={onDelete} title="Delete forever" className={`${iconBtn} hover:border-rose-400/40 hover:bg-rose-500/10 hover:text-rose-300`}>
+        <IconTrash size={15} />
+      </button>
+    )}
+  </div>
+) : null;
+
   return (
     <motion.article
       layout
@@ -82,7 +102,7 @@ export function QuestCard({ quest, onComplete, onArchive, disabled }) {
       exit={{ opacity: 0, scale: 0.92, y: -8 }}
       transition={{ type: 'spring', stiffness: 260, damping: 24 }}
       whileHover={{ y: -3 }}
-      className="group panel relative flex flex-col gap-3 p-5"
+      className={`group panel relative flex flex-col gap-3 p-5 ${isArchived ? 'opacity-75' : ''}`}
     >
       <span className="absolute -top-2 left-6 z-10 h-3 w-16 -rotate-3 rounded-sm washi opacity-70" aria-hidden="true" />
       <div className="flex items-start justify-between gap-3">
@@ -94,14 +114,7 @@ export function QuestCard({ quest, onComplete, onArchive, disabled }) {
             {type.label}
           </span>
         </div>
-        <motion.button
-          whileTap={{ scale: 0.9 }}
-          onClick={onArchive}
-          className="text-slate-500 opacity-0 transition-opacity hover:text-rose-400 group-hover:opacity-100"
-          title="Archive quest"
-        >
-          ✕
-        </motion.button>
+        {topControls}
       </div>
 
       <div>
@@ -121,10 +134,21 @@ export function QuestCard({ quest, onComplete, onArchive, disabled }) {
       </div>
 
       <div className="mt-auto flex items-center justify-between gap-3 pt-1">
-        <span className="font-mono text-[11px] text-slate-500">
-          ×{quest.completedCount + (done && !isCompleted ? 1 : 0)} completed
-        </span>
-        {isVanquished ? (
+        <span className="font-mono text-[11px] text-slate-500">×{completedCount} completed</span>
+        {isArchived ? (
+          <div className="flex items-center gap-2">
+            {onRestore && (
+              <Button variant="ghost" size="sm" onClick={onRestore} className="text-arcane-300">
+                <IconRefresh size={14} /> Restore
+              </Button>
+            )}
+            {onDelete && (
+              <Button variant="ghost" size="sm" onClick={onDelete} className="text-rose-300 hover:border-rose-400/40 hover:bg-rose-500/10 hover:text-rose-200">
+                <IconTrash size={14} /> Delete
+              </Button>
+            )}
+          </div>
+        ) : isVanquished ? (
           <span className="inline-flex -rotate-2 items-center gap-2 rounded-xl border-2 border-dashed border-emerald-400/50 bg-emerald-500/10 px-3 py-1.5 font-hand text-lg text-emerald-300">
             <Checkmark active /> Done
           </span>

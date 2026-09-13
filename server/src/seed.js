@@ -1,5 +1,45 @@
+import bcrypt from 'bcryptjs';
 import { ShopItem } from './models/ShopItem.js';
 import { Achievement } from './models/Achievement.js';
+import { User } from './models/User.js';
+import { Profile, emptyAttributes } from './models/Profile.js';
+import { Quest } from './models/Quest.js';
+
+export const DEMO_ACCOUNT = {
+  email: 'demo@lifequest.app',
+  password: 'demo1234',
+  displayName: 'Demo Hero',
+};
+
+export const DEMO_STARTER_QUESTS = [
+  {
+    title: 'Morning stretch',
+    description: 'Five minutes of light stretching to wake the joints.',
+    type: 'daily',
+    difficulty: 'easy',
+    xpReward: 12,
+    goldReward: 4,
+    attribute: 'discipline',
+  },
+  {
+    title: 'Write for ten minutes',
+    description: 'One honest paragraph. Keep the pen moving.',
+    type: 'one_off',
+    difficulty: 'medium',
+    xpReward: 25,
+    goldReward: 8,
+    attribute: 'creativity',
+  },
+  {
+    title: 'Call someone you miss',
+    description: 'A real voice beats a typed hello.',
+    type: 'weekly',
+    difficulty: 'medium',
+    xpReward: 40,
+    goldReward: 15,
+    attribute: 'social',
+  },
+];
 
 export const SHOP_BLUEPRINTS = [
   // Buffs
@@ -117,6 +157,22 @@ export const ACHIEVEMENT_BLUEPRINTS = [
   { key: 'attribute_10', name: 'Ascended Aspect', description: 'Raise any attribute to level 10.', icon: '🌌', tier: 'gold' },
   { key: 'balanced_soul', name: 'Balanced Soul', description: 'Reach level 3 in every attribute.', icon: '✨', tier: 'legendary' },
 ];
+
+export async function ensureDemoUser() {
+  const existing = await User.findOne({ email: DEMO_ACCOUNT.email });
+  if (existing) return existing;
+
+  const passwordHash = await bcrypt.hash(DEMO_ACCOUNT.password, 10);
+  const user = await User.create({
+    email: DEMO_ACCOUNT.email,
+    passwordHash,
+    displayName: DEMO_ACCOUNT.displayName,
+  });
+  await Profile.create({ userId: user._id, attributes: emptyAttributes(), gold: 120 });
+  await Quest.insertMany(DEMO_STARTER_QUESTS.map((q) => ({ userId: user._id, ...q })));
+  console.log(`[LifeQuest] Seeded demo account (${DEMO_ACCOUNT.email}).`);
+  return user;
+}
 
 export async function ensureSeedData() {
   const shopCount = await ShopItem.countDocuments();

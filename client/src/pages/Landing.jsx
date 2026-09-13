@@ -242,16 +242,16 @@ export function Landing() {
           </div>
           <div className="mt-8 grid grid-cols-3 gap-6 border-t border-slate-50/10 pt-6 text-center">
             <div>
-              <p className="font-display text-4xl text-arcane-300">5</p>
-              <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">attributes</p>
+              <p className="font-display text-4xl text-arcane-200 text-glow">5</p>
+              <p className="mt-1 font-mono text-xs uppercase tracking-[0.18em] text-slate-300">attributes</p>
             </div>
             <div>
-              <p className="font-display text-4xl text-arcane-300">4</p>
-              <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">quest weights</p>
+              <p className="font-display text-4xl text-arcane-200 text-glow">4</p>
+              <p className="mt-1 font-mono text-xs uppercase tracking-[0.18em] text-slate-300">quest weights</p>
             </div>
             <div>
-              <p className="font-display text-4xl text-arcane-300">∞</p>
-              <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">refills of coffee</p>
+              <p className="font-display text-4xl text-arcane-200 text-glow">∞</p>
+              <p className="mt-1 font-mono text-xs uppercase tracking-[0.18em] text-slate-300">refills of coffee</p>
             </div>
           </div>
         </div>
@@ -285,8 +285,8 @@ export function Landing() {
 
       <footer className="relative z-10 border-t border-slate-50/10">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-6">
-          <p className="font-mono text-[11px] text-slate-600">LifeQuest · a cozily gamified quest journal</p>
-          <p className="handnote text-lg text-slate-500">small wins, kept warm</p>
+          <p className="font-mono text-[11px] text-slate-400">LifeQuest · a cozily gamified quest journal</p>
+          <p className="handnote text-lg text-arcane-300">small wins, kept warm</p>
         </div>
       </footer>
     </div>

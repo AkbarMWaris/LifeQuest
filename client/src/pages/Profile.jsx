@@ -32,14 +32,12 @@ export function Profile() {
   const [achievements, setAchievements] = useState(null);
   const [loading, setLoading] = useState(true);
   const [displayName, setDisplayName] = useState('');
-  const [avatarUrl, setAvatarUrl] = useState('');
   const [theme, setTheme] = useState('coffee');
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     const themeMap = { void: 'coffee', astral: 'meadow', dungeon: 'midnight' };
     setDisplayName(user?.displayName || '');
-    setAvatarUrl(user?.avatarUrl || '');
     const t = user?.theme;
     setTheme((t && themeMap[t]) || (['coffee', 'meadow', 'midnight'].includes(t) ? t : 'coffee'));
   }, [user]);
@@ -61,7 +59,7 @@ export function Profile() {
     e.preventDefault();
     setSaving(true);
     try {
-      await api.patch('/profile', { displayName, avatarUrl, theme });
+      await api.patch('/profile', { displayName, theme });
       await refreshProfile();
       toast.success('Hero details updated.');
     } catch (err) {
@@ -121,10 +119,6 @@ export function Profile() {
             <div>
               <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">Hero name</label>
               <input className={inputCls} value={displayName} onChange={(e) => setDisplayName(e.target.value)} maxLength={40} />
-            </div>
-            <div>
-              <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">Avatar URL</label>
-              <input className={inputCls} value={avatarUrl} onChange={(e) => setAvatarUrl(e.target.value)} placeholder="https://..." />
             </div>
             <div>
               <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">Theme</label>

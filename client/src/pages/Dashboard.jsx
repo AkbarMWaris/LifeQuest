@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { api, errorMessage } from '../api/client.js';
@@ -42,7 +42,7 @@ export function Dashboard() {
   const { user, profile, equippedItems } = useAuth();
   const toast = useToast();
   const greeting = useGreeting();
-  const { completeQuest, levelUp, closeLevelUp } = useQuestActions();
+  const { completeQuest, archiveQuest, deleteQuest, levelUp, closeLevelUp } = useQuestActions();
   const [quests, setQuests] = useState([]);
   const [recent, setRecent] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -50,22 +50,29 @@ export function Dashboard() {
   const frame = equippedItems.find((i) => i.type === 'cosmetic');
   const frameClass = frame ? frameTitle[frame.effectJson?.frame] || frameTitle.arcane : 'border-arcane-400/30';
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const [q, c] = await Promise.all([
-          api.get('/quests?archived=false'),
-          api.get('/completions?limit=6'),
-        ]);
-        setQuests(q.data);
-        setRecent(c.data);
-      } catch (err) {
-        toast.error(errorMessage(err, 'Could not load the realm.'));
-      } finally {
-        setLoading(false);
-      }
-    })();
+  const load = useCallback(async () => {
+    try {
+      const [q, c] = await Promise.all([
+        api.get('/quests?archived=false'),
+        api.get('/completions?limit=6'),
+      ]);
+      setQuests(q.data);
+      setRecent(c.data);
+    } catch (err) {
+      toast.error(errorMessage(err, 'Could not load the realm.'));
+    } finally {
+      setLoading(false);
+    }
   }, [toast]);
+
+  useEffect(() => {
+    load();
+  }, [load]);
+
+  const removeQuest = async (quest) => {
+    if (!window.confirm(`Permanently remove "${quest.title}"? This cannot be undone.`)) return;
+    await deleteQuest(quest, load);
+  };
 
   const focusQuests = useMemo(() => quests.slice(0, 4), [quests]);
   const activeToday = profile?.lastActiveDate === new Date().toISOString().slice(0, 10);
@@ -182,7 +189,7 @@ export function Dashboard() {
           ) : (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {focusQuests.map((q) => (
-                <QuestCard key={q.id} quest={q} onComplete={completeQuest} onArchive={() => {}} />
+                <QuestCard key={q.id} quest={q} onComplete={completeQuest} onArchive={() => archiveQuest(q, load)} onDelete={() => removeQuest(q)} />
               ))}
             </div>
           )}

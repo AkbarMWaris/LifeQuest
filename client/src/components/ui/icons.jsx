@@ -230,6 +230,31 @@ export const IconPotion = ({ size, className }) => (
   </S>
 );
 
+export const IconTrash = ({ size, className }) => (
+  <S size={size} className={className}>
+    <path d="M4 7h16" />
+    <path d="M9 7V5a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 15 5v2" />
+    <path d="M6 7v12a1.5 1.5 0 0 0 1.5 1.5h9A1.5 1.5 0 0 0 18 19V7" />
+    <path d="M10 11v5M14 11v5" />
+  </S>
+);
+
+export const IconArchive = ({ size, className }) => (
+  <S size={size} className={className}>
+    <path d="M3.5 5h17a1.5 1.5 0 0 1 1.5 1.5v2a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 8.5v-2A1.5 1.5 0 0 1 3.5 5Z" />
+    <path d="M5 10v8.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V10" />
+    <path d="M10 14h4" />
+  </S>
+);
+
+export const IconLogout = ({ size, className }) => (
+  <S size={size} className={className}>
+    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+    <path d="m16 17 5-5-5-5" />
+    <path d="M21 12H9" />
+  </S>
+);
+
 export const ATTR_ICONS = {
   dumbbell: IconDumbbell,
   target: IconTarget,
