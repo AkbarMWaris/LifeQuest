@@ -35,6 +35,7 @@ LifeQuest bridges the gap between mundane tasks and game-like feedback loops. Th
 | Backend | Node.js, Express |
 | Database | MongoDB (Atlas) via Mongoose |
 | Auth | JWT access + rotating refresh tokens (bcryptjs) |
+| AI-assisted development | opencode — used to plan, build and tune the full codebase |
 
 ---
 
