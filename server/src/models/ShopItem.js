@@ -7,6 +7,7 @@ const shopItemSchema = new mongoose.Schema(
     costGold: { type: Number, required: true, min: 0 },
     effectJson: { type: mongoose.Schema.Types.Mixed, default: {} },
     description: { type: String, default: '' },
+    details: { type: String, default: '' },
     rarity: { type: String, enum: ['common', 'rare', 'legendary'], default: 'common' },
     icon: { type: String, default: '✨' },
     isActive: { type: Boolean, default: true },

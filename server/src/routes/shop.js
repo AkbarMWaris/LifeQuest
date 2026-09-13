@@ -9,7 +9,7 @@ const router = Router();
 router.use(auth);
 
 function serialize(item) {
-  return { id: String(item._id), name: item.name, type: item.type, costGold: item.costGold, description: item.description, rarity: item.rarity, icon: item.icon, effectJson: item.effectJson };
+  return { id: String(item._id), name: item.name, type: item.type, costGold: item.costGold, description: item.description, details: item.details || item.description, rarity: item.rarity, icon: item.icon, effectJson: item.effectJson };
 }
 
 router.get(

@@ -123,9 +123,9 @@ export function Profile() {
             <div>
               <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">Theme</label>
               <select className={inputCls} value={theme} onChange={(e) => setTheme(e.target.value)}>
-                <option value="coffee">Coffee Shop — warm espresso &amp; honey</option>
-                <option value="meadow">Meadow — mossy greens &amp; gold</option>
-                <option value="midnight">Midnight — graphite &amp; moon periwinkle</option>
+                <option value="coffee">Coffee</option>
+                <option value="meadow">Meadow</option>
+                <option value="midnight">Midnight</option>
               </select>
             </div>
             <div className="flex gap-2 pt-1">

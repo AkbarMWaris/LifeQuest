@@ -51,6 +51,7 @@ export const SHOP_BLUEPRINTS = [
     rarity: 'common',
     icon: '🧪',
     description: 'A shimmering tonic. Gain 1.5× XP for the next 60 minutes.',
+    details: 'Brewed in cauldrons warmed by the dawn, this tonic sharpens the mind for a focused hour. While it lasts, every quest you complete awards 1.5× experience. Best uncorked at the start of a heavy session.',
     effectJson: { multiplier: 1.5, durationMinutes: 60 },
   },
   {
@@ -60,6 +61,7 @@ export const SHOP_BLUEPRINTS = [
     rarity: 'rare',
     icon: '⚗️',
     description: 'A potent brew. Gain 2× XP for the next 45 minutes.',
+    details: 'Distilled from a hundred late nights and a thousand small wins. For 45 minutes, all quest experience is doubled. Sip wisely — the ascent is steep but brief.',
     effectJson: { multiplier: 2, durationMinutes: 45 },
   },
   {
@@ -69,15 +71,17 @@ export const SHOP_BLUEPRINTS = [
     rarity: 'rare',
     icon: '⏳',
     description: 'A gilded hourglass of the merchants. Doubles gold earned from quests for 45 minutes.',
+    details: 'The stallkeepers swear it came from a treasure ship that never reached port. For 45 minutes, every quest pays double gold. Keep it turning — time only flows one way.',
     effectJson: { goldMultiplier: 2, durationMinutes: 45 },
   },
   {
     name: 'Heartstone of Memory',
     type: 'streak_freeze',
-    costGold: 90,
+    costGold: 1000,
     rarity: 'rare',
     icon: '🧿',
     description: 'Protects your streak from one missed day.',
+    details: 'A warm stone that hums softly when your chain of days is at risk. Register it before a full day slips by and it shields the streak for you. It cracks quietly the moment it saves you — a fair trade.',
     effectJson: {},
   },
 
@@ -89,6 +93,7 @@ export const SHOP_BLUEPRINTS = [
     rarity: 'common',
     icon: '🔶',
     description: 'A frame of forged embers that frames your banner.',
+    details: 'A border of banked coals that smoulders softly around your banner on the wall of heroes. The smith re-stokes it on every banner night — cost included.',
     effectJson: { frame: 'ember' },
   },
   {
@@ -98,6 +103,7 @@ export const SHOP_BLUEPRINTS = [
     rarity: 'rare',
     icon: '🔮',
     description: 'Runes of the old court glow around your banner.',
+    details: 'Old-court runes that wake and glow brighter as your level climbs. Crafted by the Sigil Guild and certified non-cursed — this is their sixth opinion.',
     effectJson: { frame: 'arcane' },
   },
   {
@@ -107,6 +113,7 @@ export const SHOP_BLUEPRINTS = [
     rarity: 'legendary',
     icon: '🐉',
     description: 'Forged from the scales of a void dragon. A masterpiece.',
+    details: 'Forged from scales shed by a void dragon that quietly approved of your discipline. The corners drink the light. Owning one marks you as someone who has stared back at the dark and simply kept going.',
     effectJson: { frame: 'void' },
   },
 
@@ -118,6 +125,7 @@ export const SHOP_BLUEPRINTS = [
     rarity: 'common',
     icon: '🌅',
     description: 'Stands before you as Dawnwalker — master of the morning.',
+    details: 'Wear this title and let the mornings find you already awake. Bestowed on those who greet the sun mid-stride, coffee in hand, list already half-claimed.',
     effectJson: { title: 'Dawnwalker' },
   },
   {
@@ -127,6 +135,7 @@ export const SHOP_BLUEPRINTS = [
     rarity: 'rare',
     icon: '⚡',
     description: 'The Stormforged — tempered by relentless discipline.',
+    details: 'Tempered in storms of deadlines, gyms, and stubborn habits — thunder is merely your applause. Wear it when the grind turns fierce, and let your title do the shouting.',
     effectJson: { title: 'Stormforged' },
   },
   {
@@ -136,6 +145,7 @@ export const SHOP_BLUEPRINTS = [
     rarity: 'legendary',
     icon: '👑',
     description: 'Few bear this title. Fewer deserve it.',
+    details: 'For the one who has toppled every excuse and made discipline a throne. The stallmaster will not haggle. The title is worth exactly what it costs, and nothing less.',
     effectJson: { title: 'Godslayer of Habits' },
   },
 ];
@@ -192,6 +202,9 @@ export async function ensureSeedData() {
     } else {
       console.log(`[LifeQuest] Shop already seeded (${shopCount} items).`);
     }
+  }
+  for (const b of SHOP_BLUEPRINTS) {
+    await ShopItem.updateOne({ name: b.name }, { $set: { details: b.details, costGold: b.costGold } });
   }
 
   if (achCount === 0) {
