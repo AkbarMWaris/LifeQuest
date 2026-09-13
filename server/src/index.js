@@ -14,7 +14,9 @@ import completionRoutes from './routes/completions.js';
 import shopRoutes from './routes/shop.js';
 import inventoryRoutes from './routes/inventory.js';
 import achievementRoutes from './routes/achievements.js';
+import challengeRoutes from './routes/challenges.js';
 import { ensureSeedData, ensureDemoUser } from './seed.js';
+import { ensureChallengeCodes } from './utils/challengeCode.js';
 
 const app = express();
 
@@ -36,6 +38,7 @@ app.use('/api/completions', completionRoutes);
 app.use('/api/shop', shopRoutes);
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/achievements', achievementRoutes);
+app.use('/api/challenges', challengeRoutes);
 
 // In production, serve the built client (npm run build) — one deployable unit.
 if (fs.existsSync(clientDist)) {
@@ -58,6 +61,7 @@ async function bootstrap() {
   }
   await ensureSeedData();
   await ensureDemoUser();
+  await ensureChallengeCodes();
   app.listen(PORT, () => {
     console.log(`[LifeQuest] API live on http://localhost:${PORT}`);
     console.log(`[LifeQuest] Client should point here via Vite proxy (client/.env optional CLIENT_ORIGIN).`);

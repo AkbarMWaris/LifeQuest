@@ -28,7 +28,14 @@ export async function buildProfilePayload(userId) {
     : [];
 
   return {
-    user: { id: String(user._id), email: user.email, displayName: user.displayName, avatarUrl: user.avatarUrl, theme: user.theme },
+    user: {
+      id: String(user._id),
+      email: user.email,
+      displayName: user.displayName,
+      challengeCode: user.challengeCode,
+      avatarUrl: user.avatarUrl,
+      theme: user.theme,
+    },
     profile: {
       id: String(profile._id),
       currentLevel: profile.currentLevel,

@@ -5,9 +5,11 @@ import { Topbar } from './Topbar.jsx';
 import { FloatingRunes } from '../effects/FloatingRunes.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { Skeleton } from '../ui/Skeleton.jsx';
+import { useChallengePoller } from '../../hooks/useChallengePoller.js';
 
 export function AppShell() {
   const { loading } = useAuth();
+  useChallengePoller();
 
   return (
     <div className="relative min-h-screen">

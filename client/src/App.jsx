@@ -10,6 +10,7 @@ import { ArchivedQuests } from './pages/ArchivedQuests.jsx';
 import { Profile } from './pages/Profile.jsx';
 import { Shop } from './pages/Shop.jsx';
 import { Inventory } from './pages/Inventory.jsx';
+import { Arena } from './pages/Arena.jsx';
 
 function Protected({ children }) {
   const { user, loading } = useAuth();
@@ -62,6 +63,7 @@ export default function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/quests" element={<Quests />} />
         <Route path="/quests/archived" element={<ArchivedQuests />} />
+        <Route path="/arena" element={<Arena />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/inventory" element={<Inventory />} />
         <Route path="/profile" element={<Profile />} />

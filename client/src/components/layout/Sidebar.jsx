@@ -1,11 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { IconHome, IconPen, IconBag, IconBackpack, IconUser } from '../ui/icons.jsx';
+import { IconHome, IconPen, IconBag, IconBackpack, IconUser, IconSword } from '../ui/icons.jsx';
 
 const links = [
   { to: '/dashboard', label: 'Dashboard', Icon: IconHome },
   { to: '/quests', label: 'Journal', Icon: IconPen },
+  { to: '/arena', label: 'Arena', Icon: IconSword },
   { to: '/shop', label: 'The Stall', Icon: IconBag },
   { to: '/inventory', label: 'Satchel', Icon: IconBackpack },
   { to: '/profile', label: 'Hero', Icon: IconUser },

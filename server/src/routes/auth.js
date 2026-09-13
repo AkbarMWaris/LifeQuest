@@ -6,6 +6,7 @@ import { Session } from '../models/Session.js';
 import { auth, asyncHandler } from '../middleware/auth.js';
 import { signTokens, hashRefreshToken, verifyRefreshToken } from '../utils/tokens.js';
 import { buildProfilePayload } from '../utils/profilePayload.js';
+import { assignChallengeCode } from '../utils/challengeCode.js';
 
 const router = Router();
 
@@ -33,6 +34,7 @@ router.post(
       passwordHash,
       displayName: String(displayName).trim(),
     });
+    await assignChallengeCode(user);
     await Profile.create({ userId: user._id, attributes: emptyAttributes() });
 
     const { accessToken, refreshToken } = signTokens(user._id);

@@ -4,6 +4,7 @@ import { Achievement } from './models/Achievement.js';
 import { User } from './models/User.js';
 import { Profile, emptyAttributes } from './models/Profile.js';
 import { Quest } from './models/Quest.js';
+import { assignChallengeCode } from './utils/challengeCode.js';
 
 export const DEMO_ACCOUNT = {
   email: 'demo@lifequest.app',
@@ -168,6 +169,7 @@ export async function ensureDemoUser() {
     passwordHash,
     displayName: DEMO_ACCOUNT.displayName,
   });
+  await assignChallengeCode(user);
   await Profile.create({ userId: user._id, attributes: emptyAttributes(), gold: 120 });
   await Quest.insertMany(DEMO_STARTER_QUESTS.map((q) => ({ userId: user._id, ...q })));
   console.log(`[LifeQuest] Seeded demo account (${DEMO_ACCOUNT.email}).`);
