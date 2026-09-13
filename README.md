@@ -16,9 +16,14 @@ LifeQuest bridges the gap between mundane tasks and game-like feedback loops. Th
 - **Economy** — Gold currency, a bazaar (elixirs, streak freezes, cosmetic banner frames, titles), inventory with equip/use.
 - **Loot** — Boss quests roll real loot (70/25/5 rarity split).
 - **Achievements** — 16 unlockable badges checked server-side on every completion.
+- **Arena — 1v1 Challenges** — every hero gets a unique `LQ-######` challenge code. Challenge anyone by code; the first to finish wins **double the stakes** (both players' XP + gold), declared duels run on a countdown timer, and unaccepted challenges expire after 24h.
+- **The Hall — leaderboards** — community ranking computed server-side from a weighted mix of XP, streak, **total gold earned** and tasks completed, with per-metric sort tabs (Streak / Gold earned / XP / Tasks / Overall).
+- **Archive** — completed quests can be archived to a vault (`/quests/archived`) to restore or hard-delete later, keeping the active journal tidy.
+- **Themes** — hero-selected lofi palettes: Coffee, Meadow, Midnight.
+- **Quick demo login** — first server boot seeds `demo@lifequest.app` / `demo1234` with starter quests, so you can poke around in one click.
 - **Anti-cheat** — server-side math, per-quest cooldowns, hourly completion caps, audit logs for XP/Gold.
 - **Auth** — email/password, bcrypt hashing, rotating refresh sessions.
-- **Feel** — dark-fantasy "Void" theme, Cinzel/Inter/JetBrains Mono typography, spring XP bars, checkmark-draw completions, confetti level-up overlays, floating runes, toasts, skeletons and optimistic-feeling micro-interactions.
+- **Feel** — switchable lofi themes (Void/Coffee, Meadow, Midnight), Cinzel/Inter/JetBrains Mono typography, spring XP bars, checkmark-draw completions, confetti level-up overlays, floating runes, toasts, skeletons and optimistic-feeling micro-interactions.
 
 ---
 
@@ -69,6 +74,8 @@ npm run dev          # starts API (:4000) + web (:5173)
 
 Open **http://localhost:5173**, create an adventurer, forge a quest, and complete it. 🎉
 
+> 💡 **Try it instantly** — the login screen has a **Quick demo login** button (`demo@lifequest.app` / `demo1234`, auto-seeded with 3 starter quests). Perfect for testing the Arena challenges and The Hall with friends: grab your challenge code from the Arena, and let connections sign up to duel you.
+
 ---
 
 ## 📁 Project Layout
@@ -78,20 +85,22 @@ LifeQuest/
 ├── server/
 │   └── src/
 │       ├── index.js            # Express bootstrap
-│       ├── seed.js             # shop + achievement seeding
+│       ├── seed.js             # shop + achievement + demo user seeding
 │       ├── config/db.js        # Mongo connection
 │       ├── middleware/         # auth (JWT), error handler
 │       ├── models/             # User, Profile, Quest, Completion, XpLog,
 │       │                       # GoldLog, ShopItem, UserItem, Achievement,
-│       │                       # UserAchievement, Session
+│       │                       # UserAchievement, Session, Challenge
 │       ├── routes/             # auth, profile, quests, completions,
-│       │                       # shop, inventory, achievements
-│       └── utils/              # XP curve, streaks, tokens, loot, payloads
+│       │                       # shop, inventory, achievements,
+│       │                       # challenges, leaderboard
+│       └── utils/              # XP curve, streaks, tokens, loot, payloads,
+│                               # challenge codes
 └── client/
     └── src/
         ├── api/client.js       # axios + token refresh interceptor
         ├── context/            # Auth, Toast
-        ├── hooks/              # useQuestActions (complete/archive/level-up)
+        ├── hooks/              # useQuestActions (complete/archive), useChallengePoller
         ├── components/
         │   ├── layout/         # AppShell, Sidebar, Topbar
         │   ├── stats/          # XPBar, GoldCounter, StreakFlame, radar/bars
@@ -99,7 +108,8 @@ LifeQuest/
         │   ├── shop/ inventory/ achievements/
         │   ├── effects/        # LevelUpOverlay, ConfettiBurst, FloatingRunes
         │   └── ui/             # Button, Modal, Skeleton
-        └── pages/              # Landing, Auth, Dashboard, Quests, Profile, Shop, Inventory
+        └── pages/              # Landing, Auth, Dashboard, Quests, ArchivedQuests,
+                                # Arena, Shop, Inventory, Leaderboard (Hall), Profile
 ```
 
 ---
@@ -129,12 +139,18 @@ Level re-computation and attribute level-ups are all performed server-side on ev
 | GET | `/api/auth/me` | Current user + profile |
 | GET/PATCH | `/api/profile` | Fetch/update hero |
 | GET/POST | `/api/quests` | List / create quests |
-| PATCH/DELETE | `/api/quests/:id` | Edit / archive |
+| PATCH/DELETE | `/api/quests/:id` | Edit quest |
+| PATCH | `/api/quests/:id/archive` · `/unarchive` | Move to / restore from the archive vault |
+| DELETE | `/api/quests/:id` | Hard-delete a quest |
 | POST | `/api/completions/quests/:id/complete` | Grant XP/gold/streak/loot |
 | GET | `/api/completions` | Recent victories |
-| GET | `/api/shop` · POST `/api/shop/purchase` | Bazaar |
+| GET | `/api/shop` · POST `/api/shop/purchase` | Bazaar (flip cards for item details) |
 | GET | `/api/inventory` · POST `/equip` · `/use` | Satchel |
 | GET | `/api/achievements` | Badges |
+| GET | `/api/challenges` | My pending/active/completed challenge list (+ expiry sweeps) |
+| POST | `/api/challenges` | Create a challenge by opponent challenge code |
+| POST | `/api/challenges/:id/accept` · `/decline` · `/complete` | Run a duel (winner takes both stakes) |
+| GET | `/api/leaderboard` | Community standings (rank, name, streak, gold earned, XP, tasks, joined) |
 
 All routes except auth/signup/login/refresh require `Authorization: Bearer <token>`.
 
@@ -142,8 +158,8 @@ All routes except auth/signup/login/refresh require `Authorization: Bearer <toke
 
 ## 🗺️ Roadmap
 
-- Achievements/loot already live in this build (Phase 2 preview).
-- Next: OAuth (Google/GitHub), cross-tab realtime sync, guilds/parties, leaderboards, custom themes, admin audit UI.
+- Arena duels, The Hall leaderboards, archives, themes and the demo login already live in this build.
+- Next: OAuth (Google/GitHub), cross-tab realtime sync, guilds/parties, custom theme builder, admin audit UI.
 
 ---
 
