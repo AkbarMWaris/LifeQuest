@@ -15,6 +15,7 @@ import shopRoutes from './routes/shop.js';
 import inventoryRoutes from './routes/inventory.js';
 import achievementRoutes from './routes/achievements.js';
 import challengeRoutes from './routes/challenges.js';
+import leaderboardRoutes from './routes/leaderboard.js';
 import { ensureSeedData, ensureDemoUser } from './seed.js';
 import { ensureChallengeCodes } from './utils/challengeCode.js';
 
@@ -39,6 +40,7 @@ app.use('/api/shop', shopRoutes);
 app.use('/api/inventory', inventoryRoutes);
 app.use('/api/achievements', achievementRoutes);
 app.use('/api/challenges', challengeRoutes);
+app.use('/api/leaderboard', leaderboardRoutes);
 
 // In production, serve the built client (npm run build) — one deployable unit.
 if (fs.existsSync(clientDist)) {

@@ -221,7 +221,7 @@ export function Landing() {
           ))}
         </div>
 
-        <div id="how" className="relative mt-12 rounded-3xl border border-arcane-500/20 bg-arcane-500/5 p-6 sm:p-8">
+        <div id="how" className="relative mt-12 scroll-mt-24 rounded-3xl border border-arcane-500/20 bg-arcane-500/5 p-6 sm:p-8">
           <p className="handnote absolute -top-4 left-6 rounded-xl bg-void-950 px-3 text-lg text-arcane-300">how it works</p>
           <div className="grid grid-cols-1 gap-6 pt-4 md:grid-cols-3">
             <div>
